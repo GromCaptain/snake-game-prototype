@@ -25,6 +25,7 @@ class StringImpl
 	int toInt(int defaultValue = 0) const;
 
 	bool operator<(const StringImpl& s) const;
+	bool operator==(const StringImpl& s) const;
 
 	// Платформенно-зависимые функции, не для использования в клиентском коде
 	QString asQString() const;

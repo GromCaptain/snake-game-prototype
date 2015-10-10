@@ -28,13 +28,16 @@ class String
 	int toInt(int defaultValue = 0) const;
 
 	bool operator<(const String& s) const;
+	bool operator==(const String& s) const;
 
 	static const String emptyString;
 
-	StringImpl impl() const;
+	StringImpl& impl() const;
 
 	private:
 	std::shared_ptr<StringImpl> pImpl;
 	};
+
+bool operator!=(const String& s1, const String& s2);
 
 #endif // STRING_H

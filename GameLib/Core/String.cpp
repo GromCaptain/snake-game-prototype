@@ -76,8 +76,19 @@ bool String::operator<(const String& s) const
 	return impl() < s.impl();
 	}
 
-StringImpl String::impl() const
+bool String::operator==(const String& s) const
+	{
+	return impl() == s.impl();
+	}
+
+StringImpl& String::impl() const
 	{
 	return *pImpl;
 	}
 
+
+
+bool operator!=(const String& s1, const String& s2)
+	{
+	return ! (s1 == s2);
+	}

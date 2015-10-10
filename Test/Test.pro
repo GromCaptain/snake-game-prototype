@@ -1,7 +1,9 @@
 TEMPLATE = app
 CONFIG += console
 CONFIG -= app_bundle
-CONFIG -= qt
+#CONFIG -= qt
+
+QT += core
 
 INCLUDEPATH += "D:/Soft/gtest-1.7.0/include/" \
     "../GameLib"
@@ -17,7 +19,9 @@ CONFIG(release, debug|release) {
 
 LIBS += "$$PWD/libGoogleTest.a"
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    Core/String.cpp \
+    GameUtil/ConfigReader.cpp
 
 include(deployment.pri)
 qtcAddDeployment()

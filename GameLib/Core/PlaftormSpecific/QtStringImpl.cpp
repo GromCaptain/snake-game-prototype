@@ -77,6 +77,11 @@ bool StringImpl::operator<(const StringImpl& s) const
 	return string < s.string;
 	}
 
+bool StringImpl::operator==(const StringImpl& s) const
+	{
+	return string == s.string;
+	}
+
 QString StringImpl::asQString() const
 	{
 	return string;
