@@ -5,7 +5,7 @@ ThreadImpl::ThreadImpl():
 	{
 	}
 
-void ThreadImpl::start(Functor<void> f)
+void ThreadImpl::start(std::function<void()> f)
 	{
 	fun = f;
 	isFinished = false;

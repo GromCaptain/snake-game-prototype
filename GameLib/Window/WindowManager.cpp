@@ -25,7 +25,7 @@ Window& WindowManager::mainWindowAsync()
 	return *mainWnd;
 	}
 
-void WindowManager::doWorkInMainThread(Functor<void> f)
+void WindowManager::doWorkInMainThread(std::function<void()> f)
 	{
 	pImpl -> doWorkInMainThread(f);
 	}

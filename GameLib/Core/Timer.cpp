@@ -7,7 +7,7 @@ Timer::Timer()
 	QObject::connect(&timer, &QTimer::timeout, this, &Timer::tick);
 	}
 
-void Timer::start(unsigned interval, Functor<void, unsigned> func)
+void Timer::start(unsigned interval, std::function<void(unsigned)> func)
 	{
 	onTick = func;
 	timerInterval = interval;

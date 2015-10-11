@@ -6,7 +6,7 @@ Thread::Thread():
 	{
 	}
 
-void Thread::start(Functor<void> f)
+void Thread::start(std::function<void()> f)
 	{
 	pImpl -> start(f);
 	}

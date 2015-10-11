@@ -1,9 +1,8 @@
 #ifndef THREAD_H
 #define THREAD_H
 
+#include <functional>
 #include <memory>
-
-#include "Util/Functor.h"
 
 class ThreadImpl;
 
@@ -12,7 +11,7 @@ class Thread
 	public:
 	Thread();
 
-	void start(Functor<void> f);
+	void start(std::function<void()> f);
 	void stop();
 
 	bool finished() const;

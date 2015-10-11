@@ -1,9 +1,9 @@
 #ifndef THREAD_IMPL_H
 #define THREAD_IMPL_H
 
-#include <QThread>
+#include <functional>
 
-#include "Util/Functor.h"
+#include <QThread>
 
 class ThreadImpl : public QThread
 	{
@@ -11,7 +11,7 @@ class ThreadImpl : public QThread
 	public:
 	ThreadImpl();
 
-	void start(Functor<void> f);
+	void start(std::function<void()> f);
 	void stop();
 	bool done() const;
 
@@ -23,7 +23,7 @@ class ThreadImpl : public QThread
 	void workDone();
 
 	private:
-	Functor<void> fun;
+	std::function<void()> fun;
 	bool isFinished;
 	};
 

@@ -7,7 +7,7 @@
 WindowManagerImpl::WindowManagerImpl():
 	mainWnd(nullptr)
 	{
-	qRegisterMetaType< Functor<void> >("Functor<void>");
+	qRegisterMetaType< std::function<void()> >("std::function<void()>");
 	connect(this, &WindowManagerImpl::requestForWork, this, &WindowManagerImpl::doWork, Qt::QueuedConnection);
 	}
 
@@ -18,11 +18,11 @@ WindowManagerImpl::WindowManagerImpl():
 std::shared_ptr<WindowImpl> WindowManagerImpl::mainWindowAsync()
 	{
 	if (! mainWnd)
-		doWorkInMainThread(Functor<void>(this, &WindowManagerImpl::createMainWindow));
+		doWorkInMainThread(std::bind(&WindowManagerImpl::createMainWindow, this));
 	return mainWnd;
 	}
 
-void WindowManagerImpl::doWorkInMainThread(Functor<void> f)
+void WindowManagerImpl::doWorkInMainThread(std::function<void()> f)
 	{
 	QEventLoop loop;
 	connect(this, &WindowManagerImpl::workDone, &loop, &QEventLoop::quit);
@@ -30,7 +30,7 @@ void WindowManagerImpl::doWorkInMainThread(Functor<void> f)
 	loop.exec();
 	}
 
-void WindowManagerImpl::doWork(Functor<void> f)
+void WindowManagerImpl::doWork(std::function<void()> f)
 	{
 	f();
 	emit workDone();

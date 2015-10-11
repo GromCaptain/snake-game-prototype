@@ -1,11 +1,10 @@
 #ifndef WINDOW_MANAGER_IMPL_H
 #define WINDOW_MANAGER_IMPL_H
 
+#include <functional>
 #include <memory>
 
 #include <QObject>
-
-#include "Util/Functor.h"
 
 class WindowImpl;
 
@@ -17,14 +16,14 @@ class WindowManagerImpl : public QObject
 	//WindowManagerImpl(const WindowManagerImpl& winMgr);
 
 	std::shared_ptr<WindowImpl> mainWindowAsync();
-	void doWorkInMainThread(Functor<void> f);
+	void doWorkInMainThread(std::function<void()> f);
 
 	public slots:
 //	void initMainWindow();
-	void doWork(Functor<void> f);
+	void doWork(std::function<void()> f);
 
 	signals:
-	void requestForWork(Functor<void> f);
+	void requestForWork(std::function<void()> f);
 	void workDone();
 //	void askForInitMainWindow();
 //	void reportMainWindowInited();

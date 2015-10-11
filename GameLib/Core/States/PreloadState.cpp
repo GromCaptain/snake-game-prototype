@@ -22,7 +22,7 @@ PreloadState::PreloadState():
 
 void PreloadState::start(std::shared_ptr<SwitchStateInfo>)
 	{
-	thread.start(Functor<void>(this, PreloadState::doWork));
+	thread.start(std::bind(&PreloadState::doWork, this));
 	}
 void PreloadState::update(unsigned msecs)
 	{
@@ -37,10 +37,10 @@ void PreloadState::doWork()
 	ConfigReader cfg(cfgData.asString());
 	parseConfig(cfg);
 	Window& mainWnd = WindowManager::instance().mainWindowAsync();
-	auto fSetWindowType = bindFirst(Functor<void, WindowType>(&mainWnd, &Window::setWindowType), WindowType::Windowed);
-	WindowManager::instance().doWorkInMainThread(fSetWindowType);
-	auto fSetResolution = bindFirst(bindFirst(Functor<void, unsigned, unsigned>(&mainWnd, &Window::setResolution), ScreenWidth), ScreenHeight);
-	WindowManager::instance().doWorkInMainThread(fSetResolution);
+	//auto fSetWindowType = bindFirst(Functor<void, WindowType>(&mainWnd, &Window::setWindowType), WindowType::Windowed);
+	WindowManager::instance().doWorkInMainThread(std::bind(&Window::setWindowType, &mainWnd, WindowType::Windowed));
+	//auto fSetResolution = bindFirst(bindFirst(Functor<void, unsigned, unsigned>(&mainWnd, &Window::setResolution), ScreenWidth), ScreenHeight);
+	WindowManager::instance().doWorkInMainThread(std::bind(&Window::setResolution, &mainWnd, ScreenWidth, ScreenHeight));
 	}
 void PreloadState::parseConfig(const ConfigReader &cfg)
 	{

@@ -30,7 +30,8 @@ void GameManager::start()
 	currState = states[State::StateType::Preload];
 	currState -> start(std::shared_ptr<State::SwitchStateInfo>(nullptr));
 	const unsigned timerInterval = 100;
-	Functor<void, unsigned> pUpdate(this, &GameManager::update);
+	//Functor<void, unsigned> pUpdate(this, &GameManager::update);
+	std::function<void(unsigned)> pUpdate = std::bind(&GameManager::update, this, std::placeholders::_1);
 	timer.start(timerInterval, pUpdate);
 	}
 

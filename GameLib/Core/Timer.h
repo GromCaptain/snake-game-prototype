@@ -6,8 +6,6 @@
 #include <QObject>
 #include <QTimer>
 
-#include "Util/Functor.h"
-
 class GameManager;
 
 class Timer : public QObject
@@ -17,7 +15,7 @@ class Timer : public QObject
 	Timer();
 
 	//void start(unsigned interval, std::function<void(GameManager&, unsigned)> func);
-	void start(unsigned interval, Functor<void, unsigned> func);
+	void start(unsigned interval, std::function<void(unsigned)> func);
 	void stop();
 
 	void tick();
@@ -25,7 +23,7 @@ class Timer : public QObject
 	private:
 	QTimer timer;
 	//std::function<void(GameManager&, unsigned)> onTick;
-	Functor<void, unsigned> onTick;
+	std::function<void(unsigned)> onTick;
 	unsigned timerInterval;
 	};
 

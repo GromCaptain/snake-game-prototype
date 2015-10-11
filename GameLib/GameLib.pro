@@ -34,7 +34,6 @@ SOURCES += \
     Window/WindowManager.cpp
 
 HEADERS += \
-    Util/Functor.h \
     GameUtil/ConfigReader.h \
     Core/PlaftormSpecific/QtStringImpl.h \
     Core/PlaftormSpecific/QtThreadImpl.h \
