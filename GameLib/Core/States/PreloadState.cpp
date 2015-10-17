@@ -12,7 +12,7 @@
 namespace State
 {
 
-const String PreloadState::initConfig = "D:\\init.cfg";
+const String PreloadState::initConfig = "init.cfg";
 
 PreloadState::PreloadState():
 	switchInfo(new SwitchToIntroInfo),
@@ -37,9 +37,7 @@ void PreloadState::doWork()
 	ConfigReader cfg(cfgData.asString());
 	parseConfig(cfg);
 	Window& mainWnd = WindowManager::instance().mainWindowAsync();
-	//auto fSetWindowType = bindFirst(Functor<void, WindowType>(&mainWnd, &Window::setWindowType), WindowType::Windowed);
 	WindowManager::instance().doWorkInMainThread(std::bind(&Window::setWindowType, &mainWnd, WindowType::Windowed));
-	//auto fSetResolution = bindFirst(bindFirst(Functor<void, unsigned, unsigned>(&mainWnd, &Window::setResolution), ScreenWidth), ScreenHeight);
 	WindowManager::instance().doWorkInMainThread(std::bind(&Window::setResolution, &mainWnd, ScreenWidth, ScreenHeight));
 	}
 void PreloadState::parseConfig(const ConfigReader &cfg)

@@ -19,14 +19,11 @@ class WindowManagerImpl : public QObject
 	void doWorkInMainThread(std::function<void()> f);
 
 	public slots:
-//	void initMainWindow();
 	void doWork(std::function<void()> f);
 
 	signals:
 	void requestForWork(std::function<void()> f);
 	void workDone();
-//	void askForInitMainWindow();
-//	void reportMainWindowInited();
 
 	private:
 	void createMainWindow();

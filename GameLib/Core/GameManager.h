@@ -29,7 +29,6 @@ class GameManager
 	std::map<State::StateType, State::StatePtr> states;
 	State::StatePtr currState;
 	Timer timer;
-	//Subsystems subsys;
 	bool readyToExit;
 	};
 

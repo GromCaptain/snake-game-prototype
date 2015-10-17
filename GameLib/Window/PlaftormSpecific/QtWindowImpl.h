@@ -10,7 +10,6 @@ class WindowImpl : public QWidget
 	Q_OBJECT
 	public:
 	explicit WindowImpl(QWidget *parent = 0);
-	//WindowImpl(const WindowImpl& wnd);
 
 	void setWindowType(WindowType type);
 	void setResolution(unsigned W, unsigned H);

@@ -9,7 +9,14 @@ QT       += core gui widgets
 TARGET = GameLib
 TEMPLATE = lib
 CONFIG += staticlib \
-	c++11
+	c++11 \
+	debug_and_release
+
+CONFIG(release, debug|release) {
+    DESTDIR = release
+} else {
+    DESTDIR = debug
+}
 
 SOURCES += \
     GameUtil/ConfigReader.cpp \

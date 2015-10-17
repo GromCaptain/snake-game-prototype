@@ -14,7 +14,6 @@ class Timer : public QObject
 	public:
 	Timer();
 
-	//void start(unsigned interval, std::function<void(GameManager&, unsigned)> func);
 	void start(unsigned interval, std::function<void(unsigned)> func);
 	void stop();
 
@@ -22,7 +21,6 @@ class Timer : public QObject
 
 	private:
 	QTimer timer;
-	//std::function<void(GameManager&, unsigned)> onTick;
 	std::function<void(unsigned)> onTick;
 	unsigned timerInterval;
 	};

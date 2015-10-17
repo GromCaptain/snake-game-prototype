@@ -22,4 +22,25 @@ CONFIG(release, debug|release) {
 
 INCLUDEPATH += "../GameLib"
 
+# Copying resource files to build directory
+unix {
+    EXTRA_BINFILES += \
+	"$$PWD/Files"
+    for (FILE, EXTRA_BINFILES) {
+	QMAKE_POST_LINK += $$quote(cp $${FILE} $${DESTDIR}$$escape_expand(\n\t))
+    }
+}
+
+win32 {
+    EXTRA_BINFILES += \
+	"$$PWD/Files"
+    EXTRA_BINFILES_WIN = $${EXTRA_BINFILES}
+    EXTRA_BINFILES_WIN ~= s,/,\\,g
+	DESTDIR_WIN = $${DESTDIR}
+    DESTDIR_WIN ~= s,/,\\,g
+    for(FILE,EXTRA_BINFILES_WIN) {
+	QMAKE_POST_LINK += $$quote(cmd /c copy /y $${FILE} $${DESTDIR_WIN}$$escape_expand(\n\t))
+    }
+}
+
 SOURCES += main.cpp
