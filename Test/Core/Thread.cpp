@@ -1,8 +1,7 @@
 #include <gtest/gtest.h>
 #include <Core/Thread.h>
 
-#include <thread>
-#include <chrono>
+#include <QThread>
 
 class ThreadTest : public ::testing::Test
 	{
@@ -10,7 +9,7 @@ class ThreadTest : public ::testing::Test
 	virtual void SetUp() override { attempts = 0; }
 
 	void doLoop() { while (!thread.finished() && attempts < maxAttempts) ++attempts; }
-	void wait(unsigned msecs) { std::this_thread::sleep_for(std::chrono::milliseconds(msecs)); }
+	void wait(unsigned msecs) { QThread::msleep(msecs); }
 
 	protected:
 	const unsigned maxAttempts = 1000 * 1000 * 1000;
