@@ -19,9 +19,6 @@ class ThreadImpl : public QThread
 	void run() override;
 	void finish();
 
-	signals:
-	void workDone();
-
 	private:
 	std::function<void()> fun;
 	bool isFinished;

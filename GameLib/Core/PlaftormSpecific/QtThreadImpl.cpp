@@ -9,14 +9,14 @@ void ThreadImpl::start(std::function<void()> f)
 	{
 	fun = f;
 	isFinished = false;
-	connect(this, &ThreadImpl::workDone, this, &ThreadImpl::finish);
-	connect(this, &ThreadImpl::workDone, this, &ThreadImpl::quit);
+	connect(this, &ThreadImpl::finished, this, &ThreadImpl::finish, Qt::DirectConnection);
 	QThread::start();
 	}
 
 void ThreadImpl::stop()
 	{
-	QThread::quit();
+	QThread::terminate();
+	QThread::wait();
 	}
 
 bool ThreadImpl::done() const
@@ -27,7 +27,6 @@ bool ThreadImpl::done() const
 void ThreadImpl::run()
 	{
 	fun();
-	emit workDone();
 	}
 
 void ThreadImpl::finish()

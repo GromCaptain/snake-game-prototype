@@ -26,7 +26,8 @@ CONFIG(release, debug|release) {
 
 SOURCES += main.cpp \
     Core/String.cpp \
-    GameUtil/ConfigReader.cpp
+    GameUtil/ConfigReader.cpp \
+    Core/Thread.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
