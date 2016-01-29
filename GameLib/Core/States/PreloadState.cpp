@@ -2,6 +2,7 @@
 
 #include "GameUtil/ConfigReader.h"
 #include "Core/GameManager.h"
+#include "Core/Async/Async.h"
 #include "Window/Window.h"
 #include "Resources/Resources/Resource.h"
 #include "Resources/Resources/ResourceID.h"
@@ -12,9 +13,10 @@
 namespace State
 {
 
-const String PreloadState::initConfig = "init.cfg";
+const String PreloadState::initConfigName = "init.cfg";
 
 PreloadState::PreloadState():
+	loadAction(nullptr),
 	switchInfo(new SwitchToIntroInfo),
 	ScreenWidth(100), ScreenHeight(100)
 	{
@@ -22,23 +24,27 @@ PreloadState::PreloadState():
 
 void PreloadState::start(std::shared_ptr<SwitchStateInfo>)
 	{
-	thread.start(std::bind(&PreloadState::doWork, this));
+	auto f = std::bind(&PreloadState::prepareApplication, this);
+	loadAction = std::make_shared<Async::Action>(f);
+	Async::doAsync(loadAction);
 	}
 void PreloadState::update(unsigned msecs)
 	{
-	if (thread.finished())
+	if (loadAction -> done())
 		switchState(StateType::Intro, switchInfo);
 	}
 
-void PreloadState::doWork()
+void PreloadState::prepareApplication()
 	{
-	ResourceID cfgId = ResourcesManager::instance().getId(initConfig);
-	Resource cfgData = ResourcesManager::instance().getResource(cfgId);
-	ConfigReader cfg(cfgData.asString());
-	parseConfig(cfg);
-	Window& mainWnd = WindowManager::instance().mainWindowAsync();
-	WindowManager::instance().doWorkInMainThread(std::bind(&Window::setWindowType, &mainWnd, WindowType::Windowed));
-	WindowManager::instance().doWorkInMainThread(std::bind(&Window::setResolution, &mainWnd, ScreenWidth, ScreenHeight));
+	ConfigReader initCfgReader = initConfigReader();
+	parseConfig(initCfgReader);
+	prepareMainWindow();
+	}
+ConfigReader PreloadState::initConfigReader()
+	{
+	ResourceID initCfgFileId = ResourcesManager::instance().getId(initConfigName);
+	Resource initCfgData = ResourcesManager::instance().getResource(initCfgFileId);
+	return ConfigReader(initCfgData.asString());
 	}
 void PreloadState::parseConfig(const ConfigReader &cfg)
 	{
@@ -46,6 +52,12 @@ void PreloadState::parseConfig(const ConfigReader &cfg)
 	switchInfo -> introSplashFileName = cfg.getString("IntroSplashFileName");
 	ScreenWidth = cfg.getInt("ScreenWidth");
 	ScreenHeight = cfg.getInt("ScreenHeight");
+	}
+void PreloadState::prepareMainWindow()
+	{
+	Window& mainWnd = WindowManager::instance().mainWindowAsync();
+	WindowManager::instance().doWorkInMainThread(std::bind(&Window::setWindowType, &mainWnd, WindowType::Windowed));
+	WindowManager::instance().doWorkInMainThread(std::bind(&Window::setResolution, &mainWnd, ScreenWidth, ScreenHeight));
 	}
 
 }

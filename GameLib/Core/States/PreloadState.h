@@ -3,7 +3,7 @@
 
 #include "GameState.h"
 #include "Core/String.h"
-#include "Core/Thread.h"
+#include "Core/Async/Action.h"
 
 class ConfigReader;
 
@@ -25,12 +25,14 @@ class PreloadState : public GameState
 	void update(unsigned msecs) override;
 
 	private:
-	void doWork();
+	void prepareApplication();
+	static ConfigReader initConfigReader();
 	void parseConfig(const ConfigReader& cfg);
+	void prepareMainWindow();
 
 	private:
-	static const String initConfig;
-	Thread thread;
+	static const String initConfigName;
+	std::shared_ptr<Async::Action> loadAction;
 	std::shared_ptr<SwitchToIntroInfo> switchInfo;
 	unsigned ScreenWidth, ScreenHeight;
 	};

@@ -38,7 +38,13 @@ SOURCES += \
     Window/PlaftormSpecific/QtWindowImpl.cpp \
     Window/PlaftormSpecific/QtWindowManagerImpl.cpp \
     Window/Window.cpp \
-    Window/WindowManager.cpp
+    Window/WindowManager.cpp \
+    Core/Async/Async.cpp \
+    Core/Async/ThreadPool.cpp \
+    Core/Async/PlatformSpecific/Qt/QtThreadPoolImpl.cpp \
+    Core/Async/Action.cpp \
+    Core/Async/PlatformSpecific/Qt/QtActionImpl.cpp \
+    Core/Async/PlatformSpecific/Qt/QtActionImplRunnable.cpp
 
 HEADERS += \
     GameUtil/ConfigReader.h \
@@ -63,7 +69,14 @@ HEADERS += \
     Window/PlaftormSpecific/QtWindowManagerImpl.h \
     Window/Window.h \
     Window/WindowManager.h \
-    Window/WindowType.h
+    Window/WindowType.h \
+    Core/Async/Async.h \
+    Core/Async/ThreadPool.h \
+    Core/Async/PlatformSpecific/Qt/QtThreadPoolImpl.h \
+    Core/Async/Action.h \
+    Core/Async/PlatformSpecific/Qt/QtActionImpl.h \
+    Core/Async/PlatformSpecific/Qt/QtActionImplRunnable.h \
+    Core/Assert.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

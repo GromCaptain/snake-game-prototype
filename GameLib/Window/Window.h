@@ -10,7 +10,7 @@ class WindowImpl;
 class Window
 	{
 	public:
-	Window(std::shared_ptr<WindowImpl> impl);
+	explicit Window(std::shared_ptr<WindowImpl> impl);
 
 	void setWindowType(WindowType type);
 	void setResolution(unsigned w, unsigned h);
