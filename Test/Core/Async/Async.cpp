@@ -20,8 +20,9 @@ TEST(Async, LongActionNeedWait)
 	auto longFunc = []()
 		{
 		double x = 1;
-		for (long long i = 1; i < 100000000; ++i)
-			i += std::sqrt(double(i));
+		for (int i = 0; i < 100; ++i)
+			for (long long j = 1; j < 10000000; ++j)
+				x += std::sqrt(double(j));
 		};
 	auto action = std::make_shared<Action>(longFunc);
 	Async::doAsync(action);
