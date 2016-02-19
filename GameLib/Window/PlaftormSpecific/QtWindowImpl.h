@@ -3,7 +3,14 @@
 
 #include <QWidget>
 
+#include <QImage>
+
 #include "Window/WindowType.h"
+
+namespace Graphics
+{
+class TextureImpl;
+}
 
 class WindowImpl : public QWidget
 	{
@@ -14,9 +21,17 @@ class WindowImpl : public QWidget
 	void setWindowType(WindowType type);
 	void setResolution(unsigned W, unsigned H);
 
+	void renderTexture(const Graphics::TextureImpl& texture);
+
+	void paintEvent(QPaintEvent*) override;
+
 	signals:
+	void displayableImageChanged();
 
 	public slots:
+
+	private:
+	QImage displayableImage;
 	};
 
 #endif // WINDOW_IMPL_H

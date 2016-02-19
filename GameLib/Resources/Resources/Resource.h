@@ -17,10 +17,12 @@ class Resource
 	unsigned dataSize() const;
 	String asString() const;
 
+	const ResourceImpl& impl() const;
+
 	static Resource loadFromFileSystem(const String& fileName);
 
 	private:
-	Resource(const ResourceImpl& impl);
+	explicit Resource(const ResourceImpl& impl);
 
 	private:
 	std::shared_ptr<ResourceImpl> pImpl;

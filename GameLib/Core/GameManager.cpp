@@ -1,6 +1,7 @@
 #include "GameManager.h"
 
 #include "States/PreloadState.h"
+#include "States/LoadingState.h"
 #include "States/IntroState.h"
 #include "States/MenuState.h"
 #include "States/MainState.h"
@@ -29,12 +30,12 @@ void GameManager::start()
 	init();
 	currState = states[State::StateType::Preload];
 	currState -> start(std::shared_ptr<State::SwitchStateInfo>(nullptr));
-	const unsigned timerInterval = 100;
-	std::function<void(unsigned)> pUpdate = std::bind(&GameManager::update, this, std::placeholders::_1);
+	const std::chrono::milliseconds timerInterval = std::chrono::milliseconds(100);
+	std::function<void(std::chrono::milliseconds)> pUpdate = std::bind(&GameManager::update, this, std::placeholders::_1);
 	timer.start(timerInterval, pUpdate);
 	}
 
-void GameManager::update(unsigned msecs)
+void GameManager::update(std::chrono::milliseconds msecs)
 	{
 	currState -> update(msecs);
 	}
@@ -50,6 +51,7 @@ void GameManager::initStates()
 	{
 	using namespace State;
 	states[StateType::Preload]	= std::shared_ptr<GameState>(new PreloadState());
+	states[StateType::Loading]	= std::shared_ptr<GameState>(new LoadingState());
 	states[StateType::Intro]	= std::shared_ptr<GameState>(new IntroState());
 	states[StateType::Menu]		= std::shared_ptr<GameState>(new MenuState());
 	states[StateType::Main]		= std::shared_ptr<GameState>(new MainState());
@@ -62,7 +64,7 @@ void GameManager::initResources()
 	}
 void GameManager::initGraphics()
 	{
-	auto mgr = GraphicsManager::instance();
+	auto mgr = Graphics::GraphicsManager::instance();
 	mgr.init();
 	}
 

@@ -2,27 +2,21 @@
 #define TIMER_H
 
 #include <functional>
+#include <chrono>
+#include <memory>
 
-#include <QObject>
-#include <QTimer>
+class TimerImpl;
 
-class GameManager;
-
-class Timer : public QObject
+class Timer
 	{
-	Q_OBJECT
 	public:
 	Timer();
 
-	void start(unsigned interval, std::function<void(unsigned)> func);
+	void start(std::chrono::milliseconds interval, std::function<void(std::chrono::milliseconds)> func);
 	void stop();
 
-	void tick();
-
 	private:
-	QTimer timer;
-	std::function<void(unsigned)> onTick;
-	unsigned timerInterval;
+	std::shared_ptr<TimerImpl> pImpl;
 	};
 
 #endif // TIMER_H

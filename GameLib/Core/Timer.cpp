@@ -1,24 +1,18 @@
 #include "Timer.h"
+#include "PlaftormSpecific/QtTimerImpl.h"
 
 #include "GameManager.h"
 
-Timer::Timer()
+Timer::Timer():
+	pImpl(new TimerImpl())
 	{
-	QObject::connect(&timer, &QTimer::timeout, this, &Timer::tick);
 	}
 
-void Timer::start(unsigned interval, std::function<void(unsigned)> func)
+void Timer::start(std::chrono::milliseconds interval, std::function<void(std::chrono::milliseconds)> func)
 	{
-	onTick = func;
-	timerInterval = interval;
-	timer.start(interval);
+	pImpl -> start(interval, func);
 	}
 void Timer::stop()
 	{
-	timer.stop();
-	}
-
-void Timer::tick()
-	{
-	onTick(timerInterval);
+	pImpl -> stop();
 	}

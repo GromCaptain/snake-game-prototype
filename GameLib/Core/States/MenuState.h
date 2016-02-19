@@ -12,7 +12,7 @@ class MenuState : public GameState
 	MenuState();
 
 	void start(std::shared_ptr<SwitchStateInfo> info) override;
-	void update(unsigned msecs) override;
+	void update(std::chrono::milliseconds elapsed) override;
 	};
 
 }

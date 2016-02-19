@@ -2,9 +2,9 @@
 
 #include <utility>
 
-ConfigReader::ConfigReader(const String& str)
+ConfigReader::ConfigReader(const String& configurationText)
 	{
-	parse(str);
+	parse(configurationText);
 	}
 
 String ConfigReader::getString(const String& propName) const

@@ -15,6 +15,8 @@ class ResourceImpl
 	unsigned dataSize() const;
 	String asString() const;
 
+	QByteArray byteArray() const;
+
 	static ResourceImpl loadFromFileSystem(const String& fileName);
 
 	private:

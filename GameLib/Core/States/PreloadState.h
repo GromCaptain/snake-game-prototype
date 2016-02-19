@@ -10,11 +10,7 @@ class ConfigReader;
 namespace State
 {
 
-struct SwitchToIntroInfo : public SwitchStateInfo
-	{
-	String loadStateCfgFileName;
-	String introSplashFileName;
-	};
+struct SwitchToLoadingInfo;
 
 class PreloadState : public GameState
 	{
@@ -22,18 +18,21 @@ class PreloadState : public GameState
 	PreloadState();
 
 	void start(std::shared_ptr<SwitchStateInfo>) override;
-	void update(unsigned msecs) override;
+	void update(std::chrono::milliseconds elapsed) override;
 
 	private:
 	void prepareApplication();
 	static ConfigReader initConfigReader();
 	void parseConfig(const ConfigReader& cfg);
+	void loadData();
 	void prepareMainWindow();
 
 	private:
 	static const String initConfigName;
 	std::shared_ptr<Async::Action> loadAction;
-	std::shared_ptr<SwitchToIntroInfo> switchInfo;
+	std::shared_ptr<SwitchToLoadingInfo> switchInfo;
+	String loadingBackgroundFileName;
+	String globalSettingsFileName;
 	unsigned ScreenWidth, ScreenHeight;
 	};
 

@@ -11,7 +11,7 @@ void MenuState::start(std::shared_ptr<SwitchStateInfo> info)
 	{
 	//
 	}
-void MenuState::update(unsigned msecs)
+void MenuState::update(std::chrono::milliseconds elapsed)
 	{
 	//
 	}

@@ -26,8 +26,13 @@ String Resource::asString() const
 	return pImpl -> asString();
 	}
 
+const ResourceImpl&Resource::impl() const
+	{
+	return *pImpl;
+	}
+
 Resource Resource::loadFromFileSystem(const String& fileName)
 	{
-	return ResourceImpl::loadFromFileSystem(fileName);
+	return Resource(ResourceImpl::loadFromFileSystem(fileName));
 	}
 

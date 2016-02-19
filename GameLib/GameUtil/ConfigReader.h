@@ -9,7 +9,7 @@
 class ConfigReader
 	{
 	public:
-	explicit ConfigReader(const String& str);
+	explicit ConfigReader(const String& configurationText);
 
 	String getString(const String& propName) const;
 	int getInt(const String& propName) const;

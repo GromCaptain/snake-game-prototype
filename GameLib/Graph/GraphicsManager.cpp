@@ -1,5 +1,8 @@
 #include "GraphicsManager.h"
 
+namespace Graphics
+{
+
 GraphicsManager::GraphicsManager()
 	{
 	}
@@ -14,3 +17,5 @@ void GraphicsManager::init()
 	{
 	//
 	}
+
+}

@@ -2,13 +2,14 @@
 #define GAME_STATE_H
 
 #include <memory>
+#include <chrono>
 
 namespace State
 {
 
-enum class StateType { Preload, Intro, Menu, Main };
+enum class StateType { Preload, Loading, Intro, Menu, Main };
 
-class SwitchStateInfo {};
+struct SwitchStateInfo;
 
 class GameState
 	{
@@ -16,7 +17,7 @@ class GameState
 	GameState();
 
 	virtual void start(std::shared_ptr<SwitchStateInfo> info) = 0;
-	virtual void update(unsigned msecs) = 0;
+	virtual void update(std::chrono::milliseconds elapsed) = 0;
 
 	void switchState(StateType nextState, std::shared_ptr<SwitchStateInfo> info);
 	};

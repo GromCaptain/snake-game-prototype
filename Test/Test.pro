@@ -28,7 +28,8 @@ SOURCES += main.cpp \
     Core/String.cpp \
     GameUtil/ConfigReader.cpp \
     Core/Thread.cpp \
-    Core/Async/Async.cpp
+    Core/Async/Async.cpp \
+    Core/Timer.cpp
 
 include(deployment.pri)
 qtcAddDeployment()

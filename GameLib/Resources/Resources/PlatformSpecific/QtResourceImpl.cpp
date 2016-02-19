@@ -28,6 +28,11 @@ String ResourceImpl::asString() const
 	return bytes.toStdString().c_str();
 	}
 
+QByteArray ResourceImpl::byteArray() const
+	{
+	return bytes;
+	}
+
 ResourceImpl ResourceImpl::loadFromFileSystem(const String& fileName)
 	{
 	QFile file(fileName.impl().asQString());

@@ -1,6 +1,7 @@
 #ifndef GAME_MANAGER_H
 #define GAME_MANAGER_H
 
+#include <chrono>
 #include <map>
 
 #include "States/GameState.h"
@@ -14,7 +15,7 @@ class GameManager
 	void switchToState(State::StateType stateType, std::shared_ptr<State::SwitchStateInfo> switchInfo);
 
 	void start();
-	void update(unsigned msecs);
+	void update(std::chrono::milliseconds msecs);
 
 	private:
 	GameManager();

@@ -44,7 +44,23 @@ SOURCES += \
     Core/Async/PlatformSpecific/Qt/QtThreadPoolImpl.cpp \
     Core/Async/Action.cpp \
     Core/Async/PlatformSpecific/Qt/QtActionImpl.cpp \
-    Core/Async/PlatformSpecific/Qt/QtActionImplRunnable.cpp
+    Core/Async/PlatformSpecific/Qt/QtActionImplRunnable.cpp \
+    Core/States/LoadingState.cpp \
+    Graph/Texture.cpp \
+    Graph/GraphicsScene.cpp \
+    Core/States/SwitchInfo/SwitchStateInfo.cpp \
+    Core/States/SwitchInfo/SwitchToLoadingInfo.cpp \
+    Graph/Actor.cpp \
+    Graph/PlatformSpecific/Qt/QtTextureImpl.cpp \
+    Graph/Camera.cpp \
+    GameUtil/Settings.cpp \
+    Graph/Animation.cpp \
+    Core/Utility/Geometry/Rectangle.cpp \
+    Core/Utility/Geometry/Point.cpp \
+    Core/Utility/Geometry/Size.cpp \
+    Graph/GraphicsSceneLayer.cpp \
+    Core/PlaftormSpecific/QtTimerImpl.cpp \
+    Graph/Color.cpp
 
 HEADERS += \
     GameUtil/ConfigReader.h \
@@ -76,7 +92,23 @@ HEADERS += \
     Core/Async/Action.h \
     Core/Async/PlatformSpecific/Qt/QtActionImpl.h \
     Core/Async/PlatformSpecific/Qt/QtActionImplRunnable.h \
-    Core/Assert.h
+    Core/Assert.h \
+    Core/States/LoadingState.h \
+    Graph/Texture.h \
+    Graph/GraphicsScene.h \
+    Core/States/SwitchInfo/SwitchStateInfo.h \
+    Core/States/SwitchInfo/SwitchToLoadingInfo.h \
+    Graph/Actor.h \
+    Graph/PlatformSpecific/Qt/QtTextureImpl.h \
+    Graph/Camera.h \
+    GameUtil/Settings.h \
+    Graph/Animation.h \
+    Core/Utility/Geometry/Rectangle.h \
+    Core/Utility/Geometry/Point.h \
+    Core/Utility/Geometry/Size.h \
+    Graph/GraphicsSceneLayer.h \
+    Core/PlaftormSpecific/QtTimerImpl.h \
+    Graph/Color.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

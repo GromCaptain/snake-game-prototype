@@ -5,6 +5,11 @@
 
 #include "WindowType.h"
 
+namespace Graphics
+{
+class Texture;
+}
+
 class WindowImpl;
 
 class Window
@@ -14,6 +19,8 @@ class Window
 
 	void setWindowType(WindowType type);
 	void setResolution(unsigned w, unsigned h);
+
+	void renderTexture(const Graphics::Texture& texture);
 
 	private:
 	std::shared_ptr<WindowImpl> pImpl;

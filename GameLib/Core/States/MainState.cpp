@@ -11,7 +11,7 @@ void MainState::start(std::shared_ptr<SwitchStateInfo> info)
 	{
 	//
 	}
-void MainState::update(unsigned msecs)
+void MainState::update(std::chrono::milliseconds elapsed)
 	{
 	//
 	}
