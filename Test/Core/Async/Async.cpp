@@ -38,6 +38,7 @@ TEST(Async, SimpleFunctionDone)
 	Async::doAsync(inc);
 	double zzz = 0;
 	for (int i = 0; i < 1000000; ++i)
-		zzz += std::sqrt(double(i));
+		for (int j = 0; j < 1000; ++j)
+			zzz += std::sqrt(double(i));
 	EXPECT_EQ(1, x);
 	}
