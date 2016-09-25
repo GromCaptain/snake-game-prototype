@@ -1,10 +1,11 @@
 #include "ConfigReader.h"
 
+#include <algorithm>
 #include <utility>
 
-ConfigReader::ConfigReader(const String& configurationText)
+ConfigReader::ConfigReader(const String& configurationText):
+	properties(parseConfig(configurationText))
 	{
-	parse(configurationText);
 	}
 
 String ConfigReader::getString(const String& propName) const
@@ -21,20 +22,39 @@ int ConfigReader::getInt(const String& propName) const
 	return property(propName).toInt();
 	}
 
+std::vector<String> ConfigReader::getArray(const String& propName) const
+	{
+	if (!propertyExist(propName))
+		return {};
+	
+	auto prop = property(propName);
+	if (prop.trim().empty())
+		return {};
+	if (prop.substr(0, 1) != "[" || prop.substr(prop.length() - 1) != "]")
+		return { prop };
+
+	auto notTrimmedElems = prop.substr(1, prop.length() - 2).split(",");
+	std::vector<String> result(notTrimmedElems.size());
+	std::transform(notTrimmedElems.begin(), notTrimmedElems.end(), result.begin(), [](const String& s) { return s.trim(); });
+	return result;
+	}
+
 bool ConfigReader::propertyExist(const String& propName) const
 	{
 	return properties.find(propName) != properties.end();
 	}
 
-void ConfigReader::parse(const String& str)
+std::map<String, String> ConfigReader::parseConfig(const String& str)
 	{
+	std::map<String, String> resultProperties;
 	auto lines = str.splitNewLine();
 	for (auto line : lines)
 		{
 		auto propPair = parseLine(line);
 		if (!propPair.first.empty())
-			properties.insert(propPair);
+			resultProperties.insert(propPair);
 		}
+	return resultProperties;
 	}
 
 std::pair<String, String> ConfigReader::parseLine(const String& line)

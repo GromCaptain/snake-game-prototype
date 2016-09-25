@@ -10,6 +10,8 @@ class Point
 	int x() const;
 	int y() const;
 
+	bool operator==(const Point& other) const;
+
 	private:
 	int x_, y_;
 	};

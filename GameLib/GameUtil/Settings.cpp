@@ -5,7 +5,7 @@
 
 void Settings::loadFromFile(const String& settingsFileName)
 	{
-	auto id = ResourcesManager::instance().getId(settingsFileName);
+	auto id = ResourcesManager::instance().getResourceId(settingsFileName);
 	auto cfgFile = ResourcesManager::instance().getResource(id);
 	ConfigReader cfg(cfgFile.asString());
 	getSettingsFromReader(cfg);

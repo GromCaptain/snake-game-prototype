@@ -10,50 +10,53 @@ namespace Graphics
 {
 
 const String Actor::defaultAnimationName = "animation";
-const AnimationUpdater Actor::simpleUpdater = [](Animation& anim, std::chrono::milliseconds elapsed) { anim.update(elapsed); };
 
-Actor::Actor(const Point& position, const Animation& animation, const String& animationName, AnimationUpdater updater):
-	animations_({{animationName, animation}}), currAnimation_(animationName),
-	position_(position), rect_({0, 0}, animation.size()), updater_(updater)
+Actor::Actor(const Point& position, const Animation& animation, const String& animationName):
+	animations_(animation, animationName), currAnimation_(animationName),
+	rect_(position, animation.size()),
+	updater_(std::bind(Actor::updatedFrameFromCurrentAnimation, this, std::placeholders::_1, std::placeholders::_2))
 	{
+	ASSERT(!currAnimation_.empty(), "current animation name is empty");
 	}
 
-Actor::Actor(const Point& position, const std::map<String, Animation>& animations, const String& currentAnimation, AnimationUpdater updater):
+Actor::Actor(const Point& position, const AnimationCollection& animations, const String& currentAnimation):
 	animations_(animations), currAnimation_(currentAnimation),
-	position_(position), rect_({0, 0}, (animations.begin() -> second).size()), updater_(updater)
+	rect_(position, animations.animation(currentAnimation).size()),
+	updater_(std::bind(updatedFrameFromCurrentAnimation, this, std::placeholders::_1, std::placeholders::_2))
 	{
-	ASSERT(animations_.find(currAnimation_) != animations_.end(), "current animation name initialized by invalid value");
+	ASSERT(!currAnimation_.empty(), "current animation name is empty");
+	}
+
+Actor::Actor(const Point& position, const Size& size, const AnimationCollection& animations, FrameUpdater updater):
+	animations_(animations), currAnimation_("such_actor_does_not_need_current_animation_name"),
+	rect_(position, size), updater_(updater)
+	{
 	}
 
 void Actor::update(std::chrono::milliseconds elapsed)
 	{
-	updater_(currentAnimation(), elapsed);
+	animations_.setCurrentFrame(updater_(animations_, elapsed));
 	}
 
 void Actor::switchToAnimation(const String& animationName)
 	{
 	if (currAnimation_ == animationName)
 		return;
-	auto it = animations_.find(animationName);
-	if (it == animations_.end())
+	if (!animations_.contains(animationName))
 		return;
 	currAnimation_ = animationName;
-	(it -> second).reset();
+	animations_.animation(animationName).reset();
 	}
 
 Texture Actor::currentFrame() const
 	{
-	return currentAnimation().currentFrame();
-	}
-
-Point Actor::position() const
-	{
-	return position_;
+	return animations_.currentFrame();
 	}
 
 void Actor::move(const Point& position)
 	{
-	position_ = position;
+	Size rectSize = rect_.size();
+	rect_ = { position, rectSize };
 	}
 
 Rectangle Actor::rect() const
@@ -61,18 +64,21 @@ Rectangle Actor::rect() const
 	return rect_;
 	}
 
-const Animation& Actor::currentAnimation() const
+Texture Actor::updatedFrameFromCurrentAnimation(AnimationCollection& animations, std::chrono::milliseconds elapsed)
 	{
-	auto it = animations_.find(currAnimation_);
-	ASSERT(it != animations_.end(), "invalid current animation name");
-	return it -> second;
+	auto& currAnim = animations.animation(currAnimation_);
+	currAnim.update(elapsed);
+	return currAnim.currentFrame();
 	}
 
-Animation&Actor::currentAnimation()
+const Animation& Actor::currentAnimation() const
 	{
-	auto it = animations_.find(currAnimation_);
-	ASSERT(it != animations_.end(), "invalid current animation name");
-	return it -> second;
+	return animations_.animation(currAnimation_);
+	}
+
+Animation& Actor::currentAnimation()
+	{
+	return animations_.animation(currAnimation_);
 	}
 
 }

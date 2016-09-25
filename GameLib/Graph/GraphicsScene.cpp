@@ -30,12 +30,12 @@ void GraphicsScene::update(std::chrono::milliseconds elapsed)
 		layer.second.update(elapsed);
 	}
 
-void GraphicsScene::addActor(GraphicsScene::Layer targetLayer, const Actor& actor)
+void GraphicsScene::addActor(GraphicsScene::Layer targetLayer, std::shared_ptr<Actor> actor)
 	{
 	getLayer(targetLayer).addActor(actor);
 	}
 
-const std::vector<Actor> GraphicsScene::actorsInArea(GraphicsScene::Layer sourceLayer, const Rectangle& area) const
+const std::vector<std::shared_ptr<Actor> > GraphicsScene::actorsInArea(GraphicsScene::Layer sourceLayer, const Rectangle& area) const
 	{
 	return getLayer(sourceLayer).actorsInArea(area);
 	}

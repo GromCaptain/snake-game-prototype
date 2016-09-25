@@ -14,6 +14,7 @@ CONFIG += staticlib \
 
 CONFIG(release, debug|release) {
     DESTDIR = release
+    DEFINES += NDEBUG
 } else {
     DESTDIR = debug
 }
@@ -60,7 +61,17 @@ SOURCES += \
     Core/Utility/Geometry/Size.cpp \
     Graph/GraphicsSceneLayer.cpp \
     Core/PlaftormSpecific/QtTimerImpl.cpp \
-    Graph/Color.cpp
+    Graph/Color.cpp \
+    Graph/AnimationCollection.cpp \
+    UI/Components/ProgressBar.cpp \
+    UI/Components/UIComponent.cpp \
+    UI/UIScene.cpp \
+    Core/Utility/Geometry/Geometry.cpp \
+    Resources/Resources/ResourcePack.cpp \
+    Graph/ResourceLoaders/AnimationLoader.cpp \
+    Graph/ResourceLoaders/AnimationCollectionLoader.cpp \
+    GameUtil/FilePath.cpp \
+    Core/Utility/Geometry/ResourceLoaders/GeometryLoader.cpp
 
 HEADERS += \
     GameUtil/ConfigReader.h \
@@ -108,7 +119,17 @@ HEADERS += \
     Core/Utility/Geometry/Size.h \
     Graph/GraphicsSceneLayer.h \
     Core/PlaftormSpecific/QtTimerImpl.h \
-    Graph/Color.h
+    Graph/Color.h \
+    Graph/AnimationCollection.h \
+    UI/Components/ProgressBar.h \
+    UI/Components/UIComponent.h \
+    UI/UIScene.h \
+    Core/Utility/Geometry/Geometry.h \
+    Resources/Resources/ResourcePack.h \
+    Graph/ResourceLoaders/AnimationLoader.h \
+    Graph/ResourceLoaders/AnimationCollectionLoader.h \
+    GameUtil/FilePath.h \
+    Core/Utility/Geometry/ResourceLoaders/GeometryLoader.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

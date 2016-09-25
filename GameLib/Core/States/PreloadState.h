@@ -24,15 +24,13 @@ class PreloadState : public GameState
 	void prepareApplication();
 	static ConfigReader initConfigReader();
 	void parseConfig(const ConfigReader& cfg);
-	void loadData();
+	void loadData(const ConfigReader& cfg);
 	void prepareMainWindow();
 
 	private:
 	static const String initConfigName;
 	std::shared_ptr<Async::Action> loadAction;
 	std::shared_ptr<SwitchToLoadingInfo> switchInfo;
-	String loadingBackgroundFileName;
-	String globalSettingsFileName;
 	unsigned ScreenWidth, ScreenHeight;
 	};
 

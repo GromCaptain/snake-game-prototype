@@ -2,9 +2,13 @@
 
 #include "Core/GameManager.h"
 #include "Core/Async/Async.h"
+#include "Core/Utility/Geometry/Rectangle.h"
+#include "Core/Utility/Geometry/ResourceLoaders/GeometryLoader.h"
 #include "GameUtil/ConfigReader.h"
 #include "GameUtil/Settings.h"
+#include "Graph/Animation.h"
 #include "Graph/GraphicsManager.h"
+#include "Graph/ResourceLoaders/AnimationCollectionLoader.h"
 #include "Resources/Resources/Resource.h"
 #include "Resources/Resources/ResourceID.h"
 #include "Resources/ResourcesManager.h"
@@ -19,7 +23,7 @@ const String PreloadState::initConfigName = "init.cfg";
 
 PreloadState::PreloadState():
 	loadAction(nullptr),
-	switchInfo(new SwitchToLoadingInfo),
+	switchInfo(nullptr),
 	ScreenWidth(100), ScreenHeight(100)
 	{
 	}
@@ -40,30 +44,45 @@ void PreloadState::prepareApplication()
 	{
 	ConfigReader initCfgReader = initConfigReader();
 	parseConfig(initCfgReader);
-	loadData();
+	loadData(initCfgReader);
 	prepareMainWindow();
 	}
 ConfigReader PreloadState::initConfigReader()
 	{
-	ResourceID initCfgFileId = ResourcesManager::instance().getId(initConfigName);
+	ResourceID initCfgFileId = ResourcesManager::instance().getResourceId(initConfigName);
 	Resource initCfgData = ResourcesManager::instance().getResource(initCfgFileId);
 	return ConfigReader(initCfgData.asString());
 	}
 void PreloadState::parseConfig(const ConfigReader &cfg)
 	{
-	switchInfo -> loadStateCfgFileName = cfg.getString("LoadStateConfigFile");
-	loadingBackgroundFileName = cfg.getString("LoadingBackgroundFileName");
 	ScreenWidth = cfg.getInt("ScreenWidth");
 	ScreenHeight = cfg.getInt("ScreenHeight");
-	globalSettingsFileName = cfg.getString("SettingsConfigFile");
 	}
 
-void PreloadState::loadData()
+void PreloadState::loadData(const ConfigReader& cfg)
 	{
-	ResourceID loadBkgId = ResourcesManager::instance().getId(loadingBackgroundFileName);
-	Resource loadBkg = ResourcesManager::instance().getResource(loadBkgId);
+	String loadStateCfgFileName = cfg.getString("LoadStateConfigFile");
+
+	auto& resourceManager = ResourcesManager::instance();
+
+	String loadingBackgroundFileName = cfg.getString("LoadingBackgroundFileName");
+	ResourceID loadBkgId = resourceManager.getResourceId(loadingBackgroundFileName);
+	Resource loadBkg = resourceManager.getResource(loadBkgId);
 	Graphics::Texture loadBkgTexture(loadBkg);
-	switchInfo -> loadingBackground = loadBkgTexture;
+
+	String loadingProgressBarAnimsFileName = cfg.getString("LoadingProgressBarAnimationsFileName");
+	ResourceID loadPBarAnimsId = resourceManager.getPackId(loadingProgressBarAnimsFileName);
+	ResourcePack loadPBarAnimsPack = resourceManager.getPack(loadPBarAnimsId);
+	Graphics::AnimationCollection loadPBarAnims = Graphics::AnimationCollectionLoader::loadFromResources(loadPBarAnimsPack);
+
+	String loadingProgressBarGeometryFileName = cfg.getString("LoadingProgressBarGeometryFileName");
+	ResourceID loadPBarGeomId = resourceManager.getResourceId(loadingProgressBarGeometryFileName);
+	Resource loadPBarGeomResource = resourceManager.getResource(loadPBarGeomId);
+	Geometry loadPBarGeometry = GeometryLoader::loadFromResources(loadPBarGeomResource);
+
+	switchInfo = std::make_shared<SwitchToLoadingInfo>(loadStateCfgFileName, loadBkgTexture, loadPBarAnims, loadPBarGeometry);
+
+	String globalSettingsFileName = cfg.getString("SettingsConfigFile");
 	Settings::globalSettings().loadFromFile(globalSettingsFileName);
 	}
 void PreloadState::prepareMainWindow()

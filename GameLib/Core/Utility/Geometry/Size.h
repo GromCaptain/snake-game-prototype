@@ -10,6 +10,8 @@ class Size
 	unsigned width() const;
 	unsigned height() const;
 
+	bool operator==(const Size& other) const;
+
 	private:
 	unsigned width_, height_;
 	};

@@ -2,6 +2,9 @@
 #define SWITCH_TO_LOADING_INFO_H
 
 #include "Core/String.h"
+#include "Core/Utility/Geometry/Geometry.h"
+//#include "Graph/Animation.h"
+#include "Graph/AnimationCollection.h"
 #include "Graph/Texture.h"
 #include "SwitchStateInfo.h"
 
@@ -10,8 +13,11 @@ namespace State
 
 struct SwitchToLoadingInfo : public SwitchStateInfo
 	{
-	String loadStateCfgFileName;
-	Graphics::Texture loadingBackground;
+	SwitchToLoadingInfo(const String& loadStateCfgFName, const Graphics::Texture& loadingBkg, const Graphics::AnimationCollection& loadingPBarAnims, const Geometry& loadingPBarGeom);
+	const String loadStateCfgFileName;
+	const Graphics::Texture loadingBackground;
+	const Graphics::AnimationCollection loadingProgressBarAnimations;
+	const Geometry loadingProgressBarGeometry;
 	};
 
 }

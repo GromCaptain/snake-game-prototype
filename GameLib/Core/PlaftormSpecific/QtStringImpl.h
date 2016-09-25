@@ -2,7 +2,8 @@
 #define STRING_IMPL_H
 
 #include <QString>
-#include <list>
+#include <iostream>
+#include <vector>
 
 class StringImpl
 	{
@@ -12,20 +13,24 @@ class StringImpl
 	StringImpl(const StringImpl& s);
 
 	bool empty() const;
+	unsigned length() const;
 
 	StringImpl substr(unsigned start) const;
 	StringImpl substr(unsigned start, unsigned len) const;
 	StringImpl trim() const;
 
-	std::list<StringImpl> split(const StringImpl& delimiter) const;
-	std::list<StringImpl> splitNewLine() const;
+	std::vector<StringImpl> split(const StringImpl& delimiter) const;
+	std::vector<StringImpl> splitNewLine() const;
 
 	int find(const StringImpl& subStr) const;
 
 	int toInt(int defaultValue = 0) const;
+	static StringImpl fromInt(int value);
 
 	bool operator<(const StringImpl& s) const;
 	bool operator==(const StringImpl& s) const;
+
+	StringImpl& operator+=(const StringImpl& other);
 
 	// Платформенно-зависимые функции, не для использования в клиентском коде
 	QString asQString() const;
@@ -36,5 +41,7 @@ class StringImpl
 	private:
 	QString string;
 	};
+
+std::ostream& operator<<(std::ostream& out, const StringImpl& s);
 
 #endif // STRING_IMPL_H

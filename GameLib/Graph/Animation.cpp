@@ -2,6 +2,8 @@
 
 #include "Core/Utility/Geometry/Rectangle.h"
 
+#include <QDebug>
+
 namespace Graphics
 {
 
@@ -38,6 +40,7 @@ void Animation::update(std::chrono::milliseconds elapsed)
 	if (elapsedAfterLastFrame_ >= frameDuration_)
 		{
 		unsigned framesElapsed = elapsedAfterLastFrame_ / frameDuration_;
+		elapsedAfterLastFrame_ -= framesElapsed * frameDuration_;
 		currFrame_ += framesElapsed;
 		currFrame_ %= framesCount_;
 		}

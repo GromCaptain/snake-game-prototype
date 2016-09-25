@@ -6,6 +6,7 @@
 #include <functional>
 
 #include "Animation.h"
+#include "AnimationCollection.h"
 
 #include "Core/String.h"
 #include "Core/Utility/Geometry/Point.h"
@@ -14,16 +15,20 @@
 namespace Graphics
 {
 
-class Animation;
 class Texture;
+class Animation;
 
-using AnimationUpdater = std::function<void(Animation&, std::chrono::milliseconds)>;
+using FrameUpdater = std::function<Texture(AnimationCollection&, std::chrono::milliseconds)>;
 
 class Actor
 	{
 	public:
-	Actor(const Point& position, const Animation& animation, const String& animationName = defaultAnimationName, AnimationUpdater updater = simpleUpdater);
-	Actor(const Point& position, const std::map<String, Animation>& animations, const String& currentAnimation, AnimationUpdater updater = simpleUpdater);
+	Actor(const Point& position, const Animation& animation, const String& animationName = defaultAnimationName);
+	Actor(const Point& position, const AnimationCollection& animations, const String& currentAnimation);
+	Actor(const Point& position, const Size& size, const AnimationCollection& animations, FrameUpdater updater);
+
+	Actor(const Actor&) = delete;
+	Actor& operator=(const Actor&) = delete;
 
 	void update(std::chrono::milliseconds elapsed);
 
@@ -31,23 +36,21 @@ class Actor
 
 	Texture currentFrame() const;
 
-	Point position() const;
 	void move(const Point& position);
 	Rectangle rect() const;
+	Texture updatedFrameFromCurrentAnimation(AnimationCollection& animations, std::chrono::milliseconds elapsed);
 
 	static const String defaultAnimationName;
-	static const AnimationUpdater simpleUpdater;
 
 	private:
 	const Animation& currentAnimation() const;
 	Animation& currentAnimation();
 
 	private:
-	std::map<String, Animation> animations_;
+	AnimationCollection animations_;
 	String currAnimation_;
-	Point position_;
 	Rectangle rect_;
-	AnimationUpdater updater_;
+	FrameUpdater updater_;
 	};
 
 }

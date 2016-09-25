@@ -112,3 +112,51 @@ TEST(Config, GetIntOnMultiline)
 	int val = cr.getInt("Answer");
 	EXPECT_EQ(42, val);
 	}
+
+TEST(Config, GetArrayOnEmpty)
+	{
+	ConfigReader cr(String::emptyString);
+	std::vector<String> arr = cr.getArray("Something");
+	EXPECT_TRUE(arr.empty());
+	}
+
+TEST(Config, GetArrayOnAnotherEntry)
+	{
+	ConfigReader cr(String("Name=Sherlock Holmes\n\nAddress = [Baker Street, 221 b]\n\n\nAnswer =42"));
+	std::vector<String> arr = cr.getArray("Question");
+	EXPECT_TRUE(arr.empty());
+	}
+
+TEST(Config, GetArraySingleElemSize)
+	{
+	ConfigReader cr(String("Answers=[ 42 ]"));
+	std::vector<String> arr = cr.getArray("Answers");
+	EXPECT_EQ(1U, arr.size());
+	}
+
+TEST(Config, GetArraySingleElemValue)
+	{
+	ConfigReader cr(String("Answers=[ 42 ]"));
+	std::vector<String> arr = cr.getArray("Answers");
+	EXPECT_EQ(String("42"), arr[0]);
+	}
+
+TEST(Config, GetArrayMultiElemSingleWord)
+	{
+	ConfigReader cr(String("Name=Sherlock Holmes\n\nAddress = [Baker, Street, 221, b]\n\n\nAnswer =42"));
+	std::vector<String> arr = cr.getArray("Address");
+	ASSERT_EQ(4U, arr.size());
+	EXPECT_EQ(String("Baker"), arr[0]);
+	EXPECT_EQ(String("Street"), arr[1]);
+	EXPECT_EQ(String("221"), arr[2]);
+	EXPECT_EQ(String("b"), arr[3]);
+	}
+
+TEST(Config, GetArrayMultiElemMultiWord)
+	{
+	ConfigReader cr(String("Name=Sherlock Holmes\n\nAddress = [Baker Street, 221 b]\n\n\nAnswer =42"));
+	std::vector<String> arr = cr.getArray("Address");
+	ASSERT_EQ(2U, arr.size());
+	EXPECT_EQ(String("Baker Street"), arr[0]);
+	EXPECT_EQ(String("221 b"), arr[1]);
+	}

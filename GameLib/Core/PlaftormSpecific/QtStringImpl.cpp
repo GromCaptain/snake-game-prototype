@@ -27,6 +27,11 @@ bool StringImpl::empty() const
 	return string.isEmpty();
 	}
 
+unsigned StringImpl::length() const
+	{
+	return static_cast<unsigned>(string.length());
+	}
+
 StringImpl StringImpl::substr(unsigned start) const
 	{
 	return string.mid(start);
@@ -42,19 +47,19 @@ StringImpl StringImpl::trim() const
 	return string.trimmed();
 	}
 
-std::list<StringImpl> StringImpl::split(const StringImpl& delimiter) const
+std::vector<StringImpl> StringImpl::split(const StringImpl& delimiter) const
 	{
 	auto qList = string.split(delimiter.string);
-	std::list<StringImpl> res;
+	std::vector<StringImpl> res;
 	for (auto s : qList)
 		res.push_back(s);
 	return res;
 	}
 
-std::list<StringImpl> StringImpl::splitNewLine() const
+std::vector<StringImpl> StringImpl::splitNewLine() const
 	{
 	auto qList = string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
-	std::list<StringImpl> res;
+	std::vector<StringImpl> res;
 	for (auto s : qList)
 		res.push_back(s);
 	return res;
@@ -72,6 +77,11 @@ int StringImpl::toInt(int defaultValue) const
 	return ok ? res : defaultValue;
 	}
 
+StringImpl StringImpl::fromInt(int value)
+	{
+	return StringImpl(QString::number(value));
+	}
+
 bool StringImpl::operator<(const StringImpl& s) const
 	{
 	return string < s.string;
@@ -82,8 +92,21 @@ bool StringImpl::operator==(const StringImpl& s) const
 	return string == s.string;
 	}
 
+StringImpl&StringImpl::operator+=(const StringImpl& other)
+	{
+	string += other.string;
+	return *this;
+	}
+
 QString StringImpl::asQString() const
 	{
 	return string;
 	}
 
+
+
+std::ostream& operator<<(std::ostream& out, const StringImpl& s)
+	{
+	out << s.asQString().toStdString();
+	return out;
+	}

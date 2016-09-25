@@ -2,6 +2,7 @@
 #define GRAPHICS_SCENE_H
 
 #include <chrono>
+#include <memory>
 #include <array>
 #include <map>
 
@@ -26,9 +27,9 @@ class GraphicsScene
 
 	enum class Layer { Background, Actors, HUD };
 
-	void addActor(Layer targetLayer, const Actor& actor);
+	void addActor(Layer targetLayer, std::shared_ptr<Actor> actor);
 
-	const std::vector<Actor> actorsInArea(Layer sourceLayer, const Rectangle& area) const;
+	const std::vector<std::shared_ptr<Actor>> actorsInArea(Layer sourceLayer, const Rectangle& area) const;
 
 	static const std::array<Layer, 3> layersOrder;
 

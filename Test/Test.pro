@@ -29,7 +29,9 @@ SOURCES += main.cpp \
     GameUtil/ConfigReader.cpp \
     Core/Thread.cpp \
     Core/Async/Async.cpp \
-    Core/Timer.cpp
+    Core/Timer.cpp \
+    Core/Utility/Geometry/Geometry.cpp \
+    GameUtil/FilePath.cpp
 
 include(deployment.pri)
 qtcAddDeployment()

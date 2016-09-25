@@ -31,7 +31,11 @@ Texture Camera::getFrame() const
 		{
 		auto actorsToRender = scene_.actorsInArea(layerId, viewport);
 		for (const auto& actor : actorsToRender)
-			output.drawTexture(actor.currentFrame(), actor.rect());
+			{
+			Rectangle actorRect = actor -> rect();
+			Point relativeActorLeftTop = { actorRect.left() - left, actorRect.top() - top };
+			output.drawTexture(actor -> currentFrame(), { relativeActorLeftTop, actorRect.size() });
+			}
 		}
 	return output;
 	}

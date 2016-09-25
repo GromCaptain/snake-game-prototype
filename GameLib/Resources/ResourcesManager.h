@@ -5,6 +5,7 @@
 
 #include "Resources/ResourceID.h"
 #include "Resources/Resource.h"
+#include "Resources/ResourcePack.h"
 
 class String;
 
@@ -15,17 +16,23 @@ class ResourcesManager
 
 	void init();
 
-	ResourceID getId(const String& fileName);
-	bool exist(ResourceID id) const;
+	ResourceID getResourceId(const String& fileName);
+	bool resourceExist(ResourceID id) const;
 	const Resource& getResource(ResourceID id) const;
+
+	ResourceID getPackId(const String& fileName);
+	bool packExist(ResourceID id) const;
+	const ResourcePack& getPack(ResourceID id) const;
 
 	private:
 	ResourcesManager();
-	static Resource loadFromFileSystem(const String& fileName);
+	static Resource loadResourceFromFileSystem(const String& fileName);
+	static ResourcePack loadPackFromFileSystem(const String& fileName);
 	ResourceID nextId();
 
 	private:
 	std::map<ResourceID, Resource> resources;
+	std::map<ResourceID, ResourcePack> resourcePacks;
 	ResourceID maxId;
 	};
 

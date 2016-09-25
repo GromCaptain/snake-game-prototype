@@ -2,6 +2,7 @@
 #define GRAPHICS_SCENE_LAYER_H
 
 #include <chrono>
+#include <memory>
 #include <vector>
 
 #include "Actor.h"
@@ -20,12 +21,12 @@ class GraphicsSceneLayer
 
 	void update(std::chrono::milliseconds elapsed);
 
-	void addActor(const Actor& actor);
+	void addActor(std::shared_ptr<Actor> actor);
 
-	const std::vector<Actor> actorsInArea(const Rectangle& area) const;
+	const std::vector<std::shared_ptr<Actor>> actorsInArea(const Rectangle& area) const;
 
 	private:
-	std::vector<Actor> actors_;
+	std::vector<std::shared_ptr<Actor>> actors_;
 	};
 
 }

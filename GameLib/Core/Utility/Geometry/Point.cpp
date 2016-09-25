@@ -14,3 +14,8 @@ int Point::y() const
 	{
 	return y_;
 	}
+
+bool Point::operator==(const Point& other) const
+	{
+	return x_ == other.x() && y_ == other.y_;
+	}
