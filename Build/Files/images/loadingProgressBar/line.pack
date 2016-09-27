@@ -1,0 +1,3 @@
+Resources=[config, atlas]
+config=lineConfig.cfg
+atlas=progressLine.png

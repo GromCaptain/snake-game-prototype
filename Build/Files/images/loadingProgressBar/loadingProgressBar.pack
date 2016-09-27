@@ -1,0 +1,5 @@
+InnerPacks=[bkgLeftEnd, bkgRightEnd, bkgMiddle, line]
+bkgLeftEnd=bkgLeftEnd.pack
+bkgRightEnd=bkgRightEnd.pack
+bkgMiddle=bkgMiddle.pack
+line=line.pack

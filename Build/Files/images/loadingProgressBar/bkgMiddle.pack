@@ -1,0 +1,3 @@
+Resources=[config, atlas]
+config=bkgMiddleConfig.cfg
+atlas=bkgMiddle.png

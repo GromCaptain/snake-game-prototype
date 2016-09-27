@@ -35,7 +35,10 @@ void LoadingState::start(std::shared_ptr<SwitchStateInfo> info)
 		Graphics::FrameUpdater frameUpdater = std::bind(LoadingState::updateProgressBarFrame, this, std::placeholders::_1, std::placeholders::_2);
 		std::shared_ptr<Graphics::Actor> progressBarActor = std::make_shared<Graphics::Actor>(pbGeometry.position(), pbGeometry.size(), loadingInfo -> loadingProgressBarAnimations, frameUpdater);
 		uiScene.addComponent(loadingProgressBar);
-		graphicsScene.addActor(Graphics::GraphicsScene::Layer::Actors, progressBarActor);
+		graphicsScene.addActor(Graphics::GraphicsScene::Layer::HUD, progressBarActor);
+
+		auto hourglassActor = std::make_shared<Graphics::Actor>(loadingInfo -> hourglassPosition, loadingInfo -> hourglassAnimation);
+		graphicsScene.addActor(Graphics::GraphicsScene::Layer::HUD, hourglassActor);
 
 		auto settings = Settings::globalSettings();
 		auto resolution = settings.resolution();

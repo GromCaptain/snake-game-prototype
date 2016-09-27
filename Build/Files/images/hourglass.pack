@@ -1,0 +1,3 @@
+Resources=[config, atlas]
+config=hourglassConfig.cfg
+atlas=SnakeHourglass.png

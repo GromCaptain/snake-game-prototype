@@ -8,6 +8,7 @@
 #include "GameUtil/Settings.h"
 #include "Graph/Animation.h"
 #include "Graph/GraphicsManager.h"
+#include "Graph/ResourceLoaders/AnimationLoader.h"
 #include "Graph/ResourceLoaders/AnimationCollectionLoader.h"
 #include "Resources/Resources/Resource.h"
 #include "Resources/Resources/ResourceID.h"
@@ -80,7 +81,14 @@ void PreloadState::loadData(const ConfigReader& cfg)
 	Resource loadPBarGeomResource = resourceManager.getResource(loadPBarGeomId);
 	Geometry loadPBarGeometry = GeometryLoader::loadFromResources(loadPBarGeomResource);
 
-	switchInfo = std::make_shared<SwitchToLoadingInfo>(loadStateCfgFileName, loadBkgTexture, loadPBarAnims, loadPBarGeometry);
+	String hourglassAnimationFileName = cfg.getString("HourglassAnimationFileName");
+	ResourceID hourglassAnimId = resourceManager.getPackId(hourglassAnimationFileName);
+	ResourcePack hourglassAnimPack = resourceManager.getPack(hourglassAnimId);
+	Graphics::Animation hourglassAnim = Graphics::AnimationLoader::loadFromResources(hourglassAnimPack);
+
+	int hourglassX = cfg.getInt("HourglassX"), hourglassY = cfg.getInt("HourglassY");
+
+	switchInfo = std::make_shared<SwitchToLoadingInfo>(loadStateCfgFileName, loadBkgTexture, loadPBarAnims, loadPBarGeometry, hourglassAnim, Point(hourglassX, hourglassY));
 
 	String globalSettingsFileName = cfg.getString("SettingsConfigFile");
 	Settings::globalSettings().loadFromFile(globalSettingsFileName);
