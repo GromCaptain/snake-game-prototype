@@ -14,7 +14,7 @@ const String Actor::defaultAnimationName = "animation";
 Actor::Actor(const Point& position, const Animation& animation, const String& animationName):
 	animations_(animation, animationName), currAnimation_(animationName),
 	rect_(position, animation.size()),
-	updater_(std::bind(Actor::updatedFrameFromCurrentAnimation, this, std::placeholders::_1, std::placeholders::_2))
+	updater_(std::bind(&Actor::updatedFrameFromCurrentAnimation, this, std::placeholders::_1, std::placeholders::_2))
 	{
 	ASSERT(!currAnimation_.empty(), "current animation name is empty");
 	}
@@ -22,7 +22,7 @@ Actor::Actor(const Point& position, const Animation& animation, const String& an
 Actor::Actor(const Point& position, const AnimationCollection& animations, const String& currentAnimation):
 	animations_(animations), currAnimation_(currentAnimation),
 	rect_(position, animations.animation(currentAnimation).size()),
-	updater_(std::bind(updatedFrameFromCurrentAnimation, this, std::placeholders::_1, std::placeholders::_2))
+	updater_(std::bind(&updatedFrameFromCurrentAnimation, this, std::placeholders::_1, std::placeholders::_2))
 	{
 	ASSERT(!currAnimation_.empty(), "current animation name is empty");
 	}

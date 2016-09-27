@@ -31,8 +31,8 @@ void LoadingState::start(std::shared_ptr<SwitchStateInfo> info)
 		graphicsScene.addActor(Graphics::GraphicsScene::Layer::Background, backgroundTexture);
 
 		Geometry pbGeometry = loadingInfo -> loadingProgressBarGeometry;
-		loadingProgressBar = std::make_shared<UI::ProgressBar>(pbGeometry, std::bind(LoadingState::currentPercentProgress, this));
-		Graphics::FrameUpdater frameUpdater = std::bind(LoadingState::updateProgressBarFrame, this, std::placeholders::_1, std::placeholders::_2);
+		loadingProgressBar = std::make_shared<UI::ProgressBar>(pbGeometry, std::bind(&LoadingState::currentPercentProgress, this));
+		Graphics::FrameUpdater frameUpdater = std::bind(&LoadingState::updateProgressBarFrame, this, std::placeholders::_1, std::placeholders::_2);
 		std::shared_ptr<Graphics::Actor> progressBarActor = std::make_shared<Graphics::Actor>(pbGeometry.position(), pbGeometry.size(), loadingInfo -> loadingProgressBarAnimations, frameUpdater);
 		uiScene.addComponent(loadingProgressBar);
 		graphicsScene.addActor(Graphics::GraphicsScene::Layer::HUD, progressBarActor);
