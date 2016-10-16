@@ -3,10 +3,13 @@
 
 #include <QImage>
 
-class ResourceImpl;
 class Rectangle;
 class Size;
 
+namespace Resources
+{
+class ResourceImpl;
+}
 namespace Graphics
 {
 
@@ -16,7 +19,7 @@ class TextureImpl
 	{
 	public:
 	TextureImpl();
-	explicit TextureImpl(const ResourceImpl& resource);
+	explicit TextureImpl(const Resources::ResourceImpl& resource);
 	TextureImpl(const Size& size, const Color& bkgColor);
 	TextureImpl(const TextureImpl& other);
 

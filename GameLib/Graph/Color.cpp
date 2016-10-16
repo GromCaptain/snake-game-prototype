@@ -1,6 +1,6 @@
 #include "Color.h"
 
-#include "Core/Assert.h"
+#include "Core/Util/Assert.h"
 
 namespace Graphics
 {

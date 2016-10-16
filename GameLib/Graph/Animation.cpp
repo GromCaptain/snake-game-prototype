@@ -1,8 +1,6 @@
 #include "Animation.h"
 
-#include "Core/Utility/Geometry/Rectangle.h"
-
-#include <QDebug>
+#include "Core/Data/Geometry/Rectangle.h"
 
 namespace Graphics
 {

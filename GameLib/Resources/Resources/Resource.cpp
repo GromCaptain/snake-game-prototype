@@ -1,5 +1,8 @@
 #include "Resource.h"
-#include "PlatformSpecific/QtResourceImpl.h"
+#include "PlatformSpecific/Qt/QtResourceImpl.h"
+
+namespace Resources
+{
 
 Resource::Resource():
 	pImpl(new ResourceImpl)
@@ -26,7 +29,7 @@ String Resource::asString() const
 	return pImpl -> asString();
 	}
 
-const ResourceImpl&Resource::impl() const
+const ResourceImpl& Resource::impl() const
 	{
 	return *pImpl;
 	}
@@ -36,3 +39,4 @@ Resource Resource::loadFromFileSystem(const String& fileName)
 	return Resource(ResourceImpl::loadFromFileSystem(fileName));
 	}
 
+}

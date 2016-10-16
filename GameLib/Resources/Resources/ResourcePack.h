@@ -4,8 +4,12 @@
 #include <vector>
 #include <map>
 
-class Resource;
 class String;
+
+namespace Resources
+{
+
+class Resource;
 
 class ResourcePack
 	{
@@ -22,5 +26,7 @@ class ResourcePack
 	std::map<String, Resource> resources_;
 	std::map<String, ResourcePack> innerPacks_;
 	};
+
+}
 
 #endif // RESOURCE_PACK_H

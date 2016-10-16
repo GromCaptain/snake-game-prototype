@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
-#include "GameUtil/FilePath.h"
+#include "Resources/FilePath.h"
+
+using Resources::FilePath;
 
 TEST(FilePath, CreateEmpty)
 	{

@@ -1,8 +1,8 @@
 #include "Texture.h"
 #include "PlatformSpecific/Qt/QtTextureImpl.h"
 
-#include "Core/Utility/Geometry/Rectangle.h"
-#include "Core/Utility/Geometry/Size.h"
+#include "Core/Data/Geometry/Rectangle.h"
+#include "Core/Data/Geometry/Size.h"
 #include "Resources/Resources/Resource.h"
 
 namespace Graphics
@@ -13,7 +13,7 @@ Texture::Texture():
 	{
 	}
 
-Texture::Texture(const Resource& resource):
+Texture::Texture(const Resources::Resource& resource):
 	pImpl(new TextureImpl(resource.impl()))
 	{
 	}

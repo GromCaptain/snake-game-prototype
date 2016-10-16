@@ -10,6 +10,9 @@ namespace Graphics
 class Texture;
 }
 
+namespace Window
+{
+
 class WindowImpl;
 
 class Window
@@ -25,5 +28,7 @@ class Window
 	private:
 	std::shared_ptr<WindowImpl> pImpl;
 	};
+
+}
 
 #endif // WINDOW_H

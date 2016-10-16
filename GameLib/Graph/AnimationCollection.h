@@ -4,7 +4,7 @@
 #include <map>
 
 #include "Texture.h"
-#include "Core/String.h"
+#include "Core/Data/String.h"
 
 class ResourcePack;
 

@@ -1,7 +1,10 @@
 #include "Window.h"
-#include "PlaftormSpecific/QtWindowImpl.h"
+#include "PlatformSpecific/Qt/QtWindowImpl.h"
 
 #include "Graph/Texture.h"
+
+namespace Window
+{
 
 Window::Window(std::shared_ptr<WindowImpl> impl):
 	pImpl(impl)
@@ -23,3 +26,4 @@ void Window::renderTexture(const Graphics::Texture& texture)
 	pImpl -> renderTexture(texture.impl());
 	}
 
+}

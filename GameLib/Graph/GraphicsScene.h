@@ -7,7 +7,7 @@
 #include <map>
 
 #include "GraphicsSceneLayer.h"
-#include "Core/Utility/Geometry/Size.h"
+#include "Core/Data/Geometry/Size.h"
 
 namespace Graphics
 {

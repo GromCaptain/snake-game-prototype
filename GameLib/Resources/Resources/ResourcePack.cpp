@@ -1,8 +1,11 @@
 #include "ResourcePack.h"
 
 #include "Resource.h"
-#include "Core/Assert.h"
-#include "Core/String.h"
+#include "Core/Data/String.h"
+#include "Core/Util/Assert.h"
+
+namespace Resources
+{
 
 ResourcePack::ResourcePack(const std::map<String, Resource>& resources, const std::map<String, ResourcePack>& innerPacks):
 	resources_(resources), innerPacks_(innerPacks)
@@ -41,3 +44,4 @@ std::vector<String> ResourcePack::innerPackNames() const
 	return result;
 	}
 
+}

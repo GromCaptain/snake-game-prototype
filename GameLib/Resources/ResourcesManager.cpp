@@ -1,7 +1,10 @@
 #include "ResourcesManager.h"
 
-#include "GameUtil/ConfigReader.h"
-#include "GameUtil/FilePath.h"
+#include "Core/Util/ConfigReader.h"
+#include "Resources/FilePath.h"
+
+namespace Resources
+{
 
 ResourcesManager::ResourcesManager():
 	maxId(0)
@@ -93,3 +96,5 @@ ResourceID ResourcesManager::nextId()
 	{
 	return ++maxId;
 	}
+
+}

@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "GameUtil/ConfigReader.h"
+#include "Core/Util/ConfigReader.h"
 
 TEST(Config, PropertyExistOnEmpty)
 	{

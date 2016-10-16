@@ -5,9 +5,13 @@
 
 #include "Color.h"
 
-class Resource;
 class Rectangle;
 class Size;
+
+namespace Resources
+{
+class Resource;
+}
 
 namespace Graphics
 {
@@ -18,7 +22,7 @@ class Texture
 	{
 	public:
 	Texture();
-	explicit Texture(const Resource& resource);
+	explicit Texture(const Resources::Resource& resource);
 	Texture(const Size& size, const Color& bkgColor = Color::Black);
 	Texture(const Texture& other);
 

@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "Core/String.h"
+#include "Core/Data/String.h"
 
 TEST(String, EmptyByDefaultConstructor)
 	{

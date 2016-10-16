@@ -8,9 +8,9 @@
 #include "Animation.h"
 #include "AnimationCollection.h"
 
-#include "Core/String.h"
-#include "Core/Utility/Geometry/Point.h"
-#include "Core/Utility/Geometry/Rectangle.h"
+#include "Core/Data/String.h"
+#include "Core/Data/Geometry/Point.h"
+#include "Core/Data/Geometry/Rectangle.h"
 
 namespace Graphics
 {

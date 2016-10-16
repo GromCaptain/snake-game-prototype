@@ -9,6 +9,9 @@
 
 class String;
 
+namespace Resources
+{
+
 class ResourcesManager
 	{
 	public:
@@ -35,5 +38,7 @@ class ResourcesManager
 	std::map<ResourceID, ResourcePack> resourcePacks;
 	ResourceID maxId;
 	};
+
+}
 
 #endif // RESOURCES_MANAGER_H

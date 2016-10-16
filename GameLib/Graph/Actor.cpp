@@ -2,9 +2,9 @@
 
 #include <utility>
 
-#include "Core/Assert.h"
 #include "Animation.h"
 #include "Texture.h"
+#include "Core/Util/Assert.h"
 
 namespace Graphics
 {

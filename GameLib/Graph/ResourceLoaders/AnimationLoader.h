@@ -1,7 +1,10 @@
 #ifndef ANIMATION_LOADER_H
 #define ANIMATION_LOADER_H
 
+namespace Resources
+{
 class ResourcePack;
+}
 
 namespace Graphics
 {
@@ -13,7 +16,7 @@ class AnimationLoader
 	public:
 	AnimationLoader();
 	
-	static Animation loadFromResources(const ResourcePack& resourcePack);
+	static Animation loadFromResources(const Resources::ResourcePack& resourcePack);
 	};
 
 }

@@ -4,11 +4,11 @@
 #include <QPainter>
 #include <QRect>
 
-#include "Core/Assert.h"
-#include "Core/Utility/Geometry/Rectangle.h"
-#include "Core/Utility/Geometry/Size.h"
+#include "Core/Data/Geometry/Rectangle.h"
+#include "Core/Data/Geometry/Size.h"
+#include "Core/Util/Assert.h"
 #include "Graph/Color.h"
-#include "Resources/Resources/PlatformSpecific/QtResourceImpl.h"
+#include "Resources/Resources/PlatformSpecific/Qt/QtResourceImpl.h"
 
 namespace Graphics
 {
@@ -17,7 +17,7 @@ TextureImpl::TextureImpl()
 	{
 	}
 
-TextureImpl::TextureImpl(const ResourceImpl& resource)
+TextureImpl::TextureImpl(const Resources::ResourceImpl& resource)
 	{
 	image_.loadFromData(resource.byteArray());
 	ASSERT(!image_.isNull(), "Texture loading from resource failed. Texture is null.");
@@ -49,7 +49,8 @@ TextureImpl TextureImpl::crop(const Rectangle& rect) const
 void TextureImpl::drawTexture(const TextureImpl& texture, const Rectangle& rect)
 	{
 	ASSERT(!image_.isNull(), "Could not draw on null texture");
-	ASSERT(!texture.image().isNull(), "Could not draw null texture on current texture");
+	if (texture.image().isNull())
+		return;
 	int left = rect.left(), top = rect.top(), w = rect.width(), h = rect.height();
 	QRect target = { left, top, w, h };
 	QPainter painter(&image_);

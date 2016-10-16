@@ -1,8 +1,8 @@
 #include "AnimationCollection.h"
 
 #include "Animation.h"
-#include "Core/Assert.h"
-#include "Core/Utility/Geometry/Rectangle.h"
+#include "Core/Data/Geometry/Rectangle.h"
+#include "Core/Util/Assert.h"
 
 namespace Graphics
 {

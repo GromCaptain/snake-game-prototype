@@ -2,7 +2,7 @@
 
 #include "Actor.h"
 #include "GraphicsSceneLayer.h"
-#include "Core/Assert.h"
+#include "Core/Util/Assert.h"
 
 namespace Graphics
 {

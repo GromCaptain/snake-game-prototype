@@ -5,7 +5,7 @@
 #include <chrono>
 
 #include "Texture.h"
-#include "Core/Utility/Geometry/Size.h"
+#include "Core/Data/Geometry/Size.h"
 
 class Rectangle;
 

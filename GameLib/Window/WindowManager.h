@@ -4,6 +4,9 @@
 #include <functional>
 #include <memory>
 
+namespace Window
+{
+
 class Window;
 class WindowManagerImpl;
 
@@ -23,5 +26,7 @@ class WindowManager
 	std::shared_ptr<WindowManagerImpl> pImpl;
 	std::shared_ptr<Window> mainWnd;
 	};
+
+}
 
 #endif // WINDOW_MANAGER_H

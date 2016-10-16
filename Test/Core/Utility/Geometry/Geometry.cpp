@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "Core/Utility/Geometry/Geometry.h"
+#include "Core/Data/Geometry/Geometry.h"
 
 TEST(Geometry, FixedOrigPosition)
 	{

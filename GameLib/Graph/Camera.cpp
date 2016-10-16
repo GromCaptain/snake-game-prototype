@@ -2,7 +2,7 @@
 
 #include "Texture.h"
 #include "GraphicsScene.h"
-#include "Core/Utility/Geometry/Rectangle.h"
+#include "Core/Data/Geometry/Rectangle.h"
 
 namespace Graphics
 {

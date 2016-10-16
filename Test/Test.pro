@@ -27,7 +27,6 @@ CONFIG(release, debug|release) {
 SOURCES += main.cpp \
     Core/String.cpp \
     GameUtil/ConfigReader.cpp \
-    Core/Thread.cpp \
     Core/Async/Async.cpp \
     Core/Timer.cpp \
     Core/Utility/Geometry/Geometry.cpp \

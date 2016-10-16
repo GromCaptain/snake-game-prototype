@@ -4,7 +4,10 @@
 #include <memory>
 
 #include "Byte.h"
-#include "Core/String.h"
+#include "Core/Data/String.h"
+
+namespace Resources
+{
 
 class ResourceImpl;
 
@@ -27,5 +30,7 @@ class Resource
 	private:
 	std::shared_ptr<ResourceImpl> pImpl;
 	};
+
+}
 
 #endif // RESOURCE_H

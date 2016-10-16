@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 
-#include "Core/Utility/Geometry/Geometry.h"
+#include "Core/Data/Geometry/Geometry.h"
 
 namespace UI
 {

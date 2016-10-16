@@ -1,8 +1,8 @@
 #include "AnimationLoader.h"
 
 #include "../Animation.h"
-#include "Core/Utility/Geometry/Rectangle.h"
-#include "GameUtil/ConfigReader.h"
+#include "Core/Data/Geometry/Rectangle.h"
+#include "Core/Util/ConfigReader.h"
 #include "Resources/Resources/Resource.h"
 #include "Resources/Resources/ResourcePack.h"
 
@@ -13,7 +13,7 @@ AnimationLoader::AnimationLoader()
 	{
 	}
 
-Animation AnimationLoader::loadFromResources(const ResourcePack& resourcePack)
+Animation AnimationLoader::loadFromResources(const Resources::ResourcePack& resourcePack)
 	{
 	auto atlasResource = resourcePack.resource("atlas");
 	Texture atlas(atlasResource);

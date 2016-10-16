@@ -1,6 +1,9 @@
 #include "WindowManager.h"
-#include "PlaftormSpecific/QtWindowManagerImpl.h"
+#include "PlatformSpecific/Qt/QtWindowManagerImpl.h"
 #include "Window.h"
+
+namespace Window
+{
 
 WindowManager::WindowManager():
 	pImpl(new WindowManagerImpl)
@@ -30,3 +33,4 @@ void WindowManager::doWorkInMainThread(std::function<void()> f)
 	pImpl -> doWorkInMainThread(f);
 	}
 
+}

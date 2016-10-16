@@ -6,7 +6,7 @@
 #include "Resources/Resources/Resource.h"
 #include "Resources/Resources/ResourcePack.h"
 
-#include "Core/Utility/Geometry/Rectangle.h"
+#include "Core/Data/Geometry/Rectangle.h"
 
 namespace Graphics
 {
@@ -15,7 +15,7 @@ AnimationCollectionLoader::AnimationCollectionLoader()
 	{
 	}
 
-AnimationCollection AnimationCollectionLoader::loadFromResources(const ResourcePack& resourcePack)
+AnimationCollection AnimationCollectionLoader::loadFromResources(const Resources::ResourcePack& resourcePack)
 	{
 	std::vector<String> animationNames = resourcePack.innerPackNames();
 	std::map<String, Animation> animations;
