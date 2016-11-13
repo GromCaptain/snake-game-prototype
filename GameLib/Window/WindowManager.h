@@ -19,6 +19,8 @@ class WindowManager
 	Window& mainWindowAsync();
 	void doWorkInMainThread(std::function<void()> f);
 
+	void prepareInput();
+
 	private:
 	WindowManager();
 

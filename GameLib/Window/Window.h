@@ -10,6 +10,11 @@ namespace Graphics
 class Texture;
 }
 
+namespace Input
+{
+class Input;
+}
+
 namespace Window
 {
 
@@ -24,6 +29,8 @@ class Window
 	void setResolution(unsigned w, unsigned h);
 
 	void renderTexture(const Graphics::Texture& texture);
+
+	Input::Input& input();
 
 	private:
 	std::shared_ptr<WindowImpl> pImpl;

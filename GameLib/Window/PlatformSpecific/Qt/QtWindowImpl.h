@@ -5,6 +5,7 @@
 
 #include <QImage>
 
+#include "Input/Input.h"
 #include "Window/WindowType.h"
 
 namespace Graphics
@@ -26,7 +27,16 @@ class WindowImpl : public QWidget
 
 	void renderTexture(const Graphics::TextureImpl& texture);
 
+	Input::Input& input();
+
+	protected:
 	void paintEvent(QPaintEvent*) override;
+
+	void keyPressEvent(QKeyEvent* event) override;
+	void keyReleaseEvent(QKeyEvent* event) override;
+	void mousePressEvent(QMouseEvent* event) override;
+	void mouseReleaseEvent(QMouseEvent* event) override;
+	void mouseMoveEvent(QMouseEvent* event) override;
 
 	signals:
 	void displayableImageChanged();
@@ -35,6 +45,7 @@ class WindowImpl : public QWidget
 
 	private:
 	QImage displayableImage;
+	Input::Input input_;
 	};
 
 }

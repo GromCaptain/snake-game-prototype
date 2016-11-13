@@ -40,6 +40,7 @@ void GameManager::start()
 
 void GameManager::update(std::chrono::milliseconds msecs)
 	{
+	Window::WindowManager::instance().prepareInput();
 	currState -> update(msecs);
 	}
 

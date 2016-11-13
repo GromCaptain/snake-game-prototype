@@ -10,7 +10,7 @@ class ConfigReader;
 namespace State
 {
 
-struct SwitchToLoadingInfo;
+struct SwitchToIntroInfo;
 
 class PreloadState : public GameState
 	{
@@ -30,7 +30,7 @@ class PreloadState : public GameState
 	private:
 	static const String initConfigName;
 	std::shared_ptr<Async::Action> loadAction;
-	std::shared_ptr<SwitchToLoadingInfo> switchInfo;
+	std::shared_ptr<SwitchToIntroInfo> switchInfo;
 	unsigned ScreenWidth, ScreenHeight;
 	};
 

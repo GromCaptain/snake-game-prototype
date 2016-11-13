@@ -13,7 +13,7 @@ namespace State
 
 struct SwitchToLoadingInfo : public SwitchStateInfo
 	{
-	SwitchToLoadingInfo(const String& loadStateCfgFName, const Graphics::Texture& loadingBkg, const Graphics::AnimationCollection& loadingPBarAnims, const Geometry& loadingPBarGeom, const Graphics::Animation hourglassAnim, const Point& hourglassPos);
+	SwitchToLoadingInfo(const String& loadStateCfgFName, const Graphics::Texture& loadingBkg, const Graphics::AnimationCollection& loadingPBarAnims, const Geometry& loadingPBarGeom, const Graphics::Animation& hourglassAnim, const Point& hourglassPos);
 	const String loadStateCfgFileName;
 	const Graphics::Texture loadingBackground;
 	const Graphics::AnimationCollection loadingProgressBarAnimations;

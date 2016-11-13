@@ -13,6 +13,7 @@
 #include "Resources/Resources/Resource.h"
 #include "Resources/Resources/ResourceID.h"
 #include "Resources/ResourcesManager.h"
+#include "SwitchInfo/SwitchToIntroInfo.h"
 #include "SwitchInfo/SwitchToLoadingInfo.h"
 #include "Window/Window.h"
 #include "Window/WindowManager.h"
@@ -38,7 +39,7 @@ void PreloadState::start(std::shared_ptr<SwitchStateInfo>)
 void PreloadState::update(std::chrono::milliseconds elapsed)
 	{
 	if (loadAction -> done())
-		switchState(StateType::Loading, switchInfo);
+		switchState(StateType::Intro, switchInfo);
 	}
 
 void PreloadState::prepareApplication()
@@ -70,6 +71,13 @@ void PreloadState::loadData(const ConfigReader& cfg)
 
 	auto& resourceManager = Resources::ResourcesManager::instance();
 
+	int introDurationMSecs = cfg.getInt("IntroDurationMilliseconds");
+
+	String introSplashFileName = cfg.getString("IntroSplashAnimation");
+	ResourceID introSplashId = resourceManager.getPackId(introSplashFileName);
+	ResourcePack introSplashPack = resourceManager.getPack(introSplashId);
+	Graphics::Animation introSplashAnim = Graphics::AnimationLoader::loadFromResources(introSplashPack);
+
 	String loadingBackgroundFileName = cfg.getString("LoadingBackgroundFileName");
 	ResourceID loadBkgId = resourceManager.getResourceId(loadingBackgroundFileName);
 	Resource loadBkg = resourceManager.getResource(loadBkgId);
@@ -92,7 +100,8 @@ void PreloadState::loadData(const ConfigReader& cfg)
 
 	int hourglassX = cfg.getInt("HourglassX"), hourglassY = cfg.getInt("HourglassY");
 
-	switchInfo = std::make_shared<SwitchToLoadingInfo>(loadStateCfgFileName, loadBkgTexture, loadPBarAnims, loadPBarGeometry, hourglassAnim, Point(hourglassX, hourglassY));
+	auto switchToLoadingInfo = std::make_shared<SwitchToLoadingInfo>(loadStateCfgFileName, loadBkgTexture, loadPBarAnims, loadPBarGeometry, hourglassAnim, Point(hourglassX, hourglassY));
+	switchInfo = std::make_shared<SwitchToIntroInfo>(std::chrono::milliseconds(introDurationMSecs), switchToLoadingInfo, introSplashAnim);
 
 	String globalSettingsFileName = cfg.getString("SettingsConfigFile");
 	GameEngine::Settings::globalSettings().loadFromFile(globalSettingsFileName);

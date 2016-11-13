@@ -26,4 +26,9 @@ void Window::renderTexture(const Graphics::Texture& texture)
 	pImpl -> renderTexture(texture.impl());
 	}
 
+Input::Input&Window::input()
+	{
+	return pImpl -> input();
+	}
+
 }

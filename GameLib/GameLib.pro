@@ -74,7 +74,14 @@ SOURCES += \
     Resources/Resources/PlatformSpecific/Qt/QtResourceImpl.cpp \
     Resources/FilePath.cpp \
     Window/PlatformSpecific/Qt/QtWindowImpl.cpp \
-    Window/PlatformSpecific/Qt/QtWindowManagerImpl.cpp
+    Window/PlatformSpecific/Qt/QtWindowManagerImpl.cpp \
+    GameEngine/States/States/SwitchInfo/SwitchToIntroInfo.cpp \
+    Input/Input.cpp \
+    Input/PlatformSpecific/Qt/QtInputImpl.cpp \
+    Input/Events/InputEvent.cpp \
+    Input/Events/KeyboardEvent.cpp \
+    Input/Events/MouseButtonEvent.cpp \
+    Input/Events/MouseMoveEvent.cpp
 
 HEADERS += \
     Graph/GraphicsManager.h \
@@ -130,4 +137,13 @@ HEADERS += \
     Resources/Resources/PlatformSpecific/Qt/QtResourceImpl.h \
     Resources/FilePath.h \
     Window/PlatformSpecific/Qt/QtWindowImpl.h \
-    Window/PlatformSpecific/Qt/QtWindowManagerImpl.h
+    Window/PlatformSpecific/Qt/QtWindowManagerImpl.h \
+    GameEngine/States/States/SwitchInfo/SwitchToIntroInfo.h \
+    Input/KeyboardKey.h \
+    Input/Input.h \
+    Input/PlatformSpecific/Qt/QtInputImpl.h \
+    Input/Events/InputEvent.h \
+    Input/Events/KeyboardEvent.h \
+    Input/MouseButton.h \
+    Input/Events/MouseButtonEvent.h \
+    Input/Events/MouseMoveEvent.h

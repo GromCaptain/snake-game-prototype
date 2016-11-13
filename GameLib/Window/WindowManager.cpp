@@ -2,6 +2,8 @@
 #include "PlatformSpecific/Qt/QtWindowManagerImpl.h"
 #include "Window.h"
 
+#include "Input/Input.h"
+
 namespace Window
 {
 
@@ -31,6 +33,11 @@ Window& WindowManager::mainWindowAsync()
 void WindowManager::doWorkInMainThread(std::function<void()> f)
 	{
 	pImpl -> doWorkInMainThread(f);
+	}
+
+void WindowManager::prepareInput()
+	{
+	mainWindowAsync().input().flushEvents();
 	}
 
 }

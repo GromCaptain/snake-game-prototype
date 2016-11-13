@@ -7,7 +7,7 @@
 namespace State
 {
 
-enum class StateType { Preload, Loading, Intro, Menu, Main };
+enum class StateType { Preload, Intro, Loading, Menu, Main };
 
 struct SwitchStateInfo;
 
