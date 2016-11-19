@@ -8,6 +8,8 @@
 #include "Input/Events/MouseButtonEvent.h"
 #include "Input/Events/MouseMoveEvent.h"
 
+#include "Core/Util/CloneFactory.h"
+
 namespace Input
 {
 
@@ -25,11 +27,10 @@ void InputImpl::flushEvents()
 	prevFrameEvents_ = ongoingEvents_;
 	}
 
-std::queue<std::shared_ptr<InputEvent>> InputImpl::eventQueue() const
+std::queue<InputEventPtr> InputImpl::eventQueue() const
 	{
 	std::lock_guard<std::mutex> prevFrameGuard(prevFrameMutex_);
-	std::queue<std::shared_ptr<InputEvent>> copy = prevFrameEvents_;
-	return copy;
+	return deepCopyToQueue(prevFrameEvents_);
 	}
 
 void InputImpl::registerKeyPressEvent(QKeyEvent* event)
@@ -75,10 +76,24 @@ void InputImpl::registerMouseMoveEvent(QMouseEvent* event)
 	registerInputEvent(moveEvent);
 	}
 
-void InputImpl::registerInputEvent(std::shared_ptr<InputEvent> event)
+void InputImpl::registerInputEvent(InputEventPtr event)
 	{
 	std::lock_guard<std::mutex> ongoinGuard(ongoingMutex_);
-	ongoingEvents_.push(event);
+	ongoingEvents_.push_back(event);
+	}
+
+std::queue<InputEventPtr> InputImpl::deepCopyToQueue(const std::deque<InputEventPtr>& source)
+	{
+	std::queue<InputEventPtr> result;
+	for (auto eventPtr : source)
+		result.push(cloneEvent(eventPtr));
+	return result;
+	}
+
+InputEventPtr InputImpl::cloneEvent(const InputEventPtr event)
+	{
+	InputEvent* cloned = CloneFactory<InputEvent>::instance().clone(event.get());
+	return InputEventPtr(cloned);
 	}
 
 }

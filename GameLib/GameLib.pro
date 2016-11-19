@@ -146,4 +146,5 @@ HEADERS += \
     Input/Events/KeyboardEvent.h \
     Input/MouseButton.h \
     Input/Events/MouseButtonEvent.h \
-    Input/Events/MouseMoveEvent.h
+    Input/Events/MouseMoveEvent.h \
+    Core/Util/CloneFactory.h
