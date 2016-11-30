@@ -25,12 +25,12 @@ CONFIG(release, debug|release) {
 }
 
 SOURCES += main.cpp \
-    Core/String.cpp \
-    GameUtil/ConfigReader.cpp \
-    Core/Async/Async.cpp \
-    Core/Timer.cpp \
-    Core/Utility/Geometry/Geometry.cpp \
-    GameUtil/FilePath.cpp
+    Core/Data/Geometry/Geometry.cpp \
+    Core/Data/String.cpp \
+    Core/Task/Async/Async.cpp \
+    Core/Task/Timer.cpp \
+    Core/Util/ConfigReader.cpp \
+    Resources/FilePath.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
