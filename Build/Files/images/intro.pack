@@ -1,0 +1,3 @@
+Resources=[config, atlas]
+config=intro.cfg
+atlas=Intro.png
