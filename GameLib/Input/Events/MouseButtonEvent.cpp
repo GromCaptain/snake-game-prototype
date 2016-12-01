@@ -8,13 +8,7 @@ namespace Input
 
 namespace
 {
-InputEvent* cloneMouseButtonEvent(const InputEvent* event)
-	{
-	auto mouseButtonEvent = dynamic_cast<const MouseButtonEvent*>(event);
-	return new MouseButtonEvent(*mouseButtonEvent);
-	}
-
-bool registered = CloneFactory<InputEvent>::instance().registerProduct({ typeid(MouseButtonEvent) }, cloneMouseButtonEvent);
+bool registered = CloneFactory<InputEvent>::instance().registerProduct<MouseButtonEvent>();
 }
 
 MouseButtonEvent::MouseButtonEvent(MouseButton button, EventType type):

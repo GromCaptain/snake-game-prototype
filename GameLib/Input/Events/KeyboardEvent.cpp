@@ -8,13 +8,7 @@ namespace Input
 
 namespace
 {
-InputEvent* cloneKeyboardEvent(const InputEvent* event)
-	{
-	auto keyboardEvent = dynamic_cast<const KeyboardEvent*>(event);
-	return new KeyboardEvent(*keyboardEvent);
-	}
-
-bool registered = CloneFactory<InputEvent>::instance().registerProduct({ typeid(KeyboardEvent) }, cloneKeyboardEvent);
+bool registered = CloneFactory<InputEvent>::instance().registerProduct<KeyboardEvent>();
 }
 
 KeyboardEvent::KeyboardEvent(KeyboardKey key, EventType type):

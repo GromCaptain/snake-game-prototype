@@ -1,6 +1,7 @@
 #ifndef CLONE_FACTORY_H
 #define CLONE_FACTORY_H
 
+#include <memory>
 #include <exception>
 #include <typeindex>
 #include <unordered_map>
@@ -29,9 +30,7 @@ template <class AbstractProduct> class DefaultCloneFactoryError
 
 
 
-template <class AbstractProduct,
-		  class ProductCloner = AbstractProduct* (*)(const AbstractProduct*),
-		  template<class> class FactoryErrorPolicy = DefaultCloneFactoryError>
+template <class AbstractProduct, template<class> class FactoryErrorPolicy = DefaultCloneFactoryError>
 class CloneFactory : public FactoryErrorPolicy<AbstractProduct>
 	{
 	public:
@@ -40,17 +39,22 @@ class CloneFactory : public FactoryErrorPolicy<AbstractProduct>
 		std::type_index index{typeid(prototype)};
 		auto it = id2Cloner.find(index);
 		if (it != id2Cloner.end())
-			return it -> second(prototype);
+			return it -> second -> clone(prototype);
 		return this -> onUnknownType(prototype);
 		}
-	bool registerProduct(const std::type_index& typeId, ProductCloner creator)
+
+	template <class ConcreteProduct> bool registerProduct()
 		{
-		std::pair<std::type_index, ProductCloner> insertingPair(typeId, creator);
+		std::type_index index{typeid(ConcreteProduct)};
+		ClonerPtr cloner {new ConcreteCloner<ConcreteProduct>()};
+		std::pair<std::type_index, ClonerPtr> insertingPair(index, cloner);
 		return id2Cloner.insert(insertingPair).second;
 		}
-	bool unregisterProduct(const std::type_index& typeId)
+
+	template <class ConcreteProduct> bool unregisterProduct()
 		{
-		return id2Cloner.erase(typeId) == 1;
+		std::type_index index{typeid(ConcreteProduct)};
+		return id2Cloner.erase(index) == 1;
 		}
 
 	static CloneFactory& instance()
@@ -60,10 +64,27 @@ class CloneFactory : public FactoryErrorPolicy<AbstractProduct>
 		}
 
 	private:
-	CloneFactory() = default;
+	CloneFactory() {}
 
 	private:
-	std::unordered_map<std::type_index, ProductCloner> id2Cloner;
+	class AbstractCloner
+		{
+		public:
+		virtual ~AbstractCloner() {}
+		virtual AbstractProduct* clone(const AbstractProduct *prototype) = 0;
+		};
+
+	template <class ConcreteProduct> class ConcreteCloner : public AbstractCloner
+		{
+		AbstractProduct* clone(const AbstractProduct *prototype) override
+			{
+			const ConcreteProduct* castedPrototype = dynamic_cast<ConcreteProduct*>(const_cast<AbstractProduct*>(prototype));
+			return new ConcreteProduct(*castedPrototype);
+			}
+		};
+
+	using ClonerPtr = std::shared_ptr<AbstractCloner>;
+	std::unordered_map<std::type_index, ClonerPtr> id2Cloner;
 	};
 
 #endif // CLONE_FACTORY_H

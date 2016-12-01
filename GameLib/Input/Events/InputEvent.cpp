@@ -3,6 +3,10 @@
 namespace Input
 {
 
+InputEvent::~InputEvent()
+	{
+	}
+
 InputEvent::InputEvent(EventType type):
 	type_(type)
 	{
