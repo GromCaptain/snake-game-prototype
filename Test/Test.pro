@@ -30,7 +30,8 @@ SOURCES += main.cpp \
     Core/Task/Async/Async.cpp \
     Core/Task/Timer.cpp \
     Core/Util/ConfigReader.cpp \
-    Resources/FilePath.cpp
+    Resources/FilePath.cpp \
+    Core/Util/CloneFactory.cpp
 
 include(deployment.pri)
 qtcAddDeployment()

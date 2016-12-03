@@ -36,7 +36,7 @@ class CloneFactory : public FactoryErrorPolicy<AbstractProduct>
 	public:
 	AbstractProduct* clone(const AbstractProduct* prototype)
 		{
-		std::type_index index{typeid(prototype)};
+		std::type_index index{typeid(*prototype)};
 		auto it = id2Cloner.find(index);
 		if (it != id2Cloner.end())
 			return it -> second -> clone(prototype);
@@ -47,8 +47,7 @@ class CloneFactory : public FactoryErrorPolicy<AbstractProduct>
 		{
 		std::type_index index{typeid(ConcreteProduct)};
 		ClonerPtr cloner {new ConcreteCloner<ConcreteProduct>()};
-		std::pair<std::type_index, ClonerPtr> insertingPair(index, cloner);
-		return id2Cloner.insert(insertingPair).second;
+		return id2Cloner.emplace(index, cloner).second;
 		}
 
 	template <class ConcreteProduct> bool unregisterProduct()
