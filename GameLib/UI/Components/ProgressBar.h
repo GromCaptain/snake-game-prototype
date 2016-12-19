@@ -22,7 +22,7 @@ class ProgressBar : public UIComponent
 	public:
 	using ProgressUpdater = std::function<unsigned()>;
 
-	ProgressBar(const Geometry& geometry, ProgressUpdater progressUpdater);
+	ProgressBar(UIScene& uiScene, const Geometry& geometry, ProgressUpdater progressUpdater);
 
 	Graphics::Texture updateActorFrame(Graphics::AnimationCollection& animations, std::chrono::milliseconds elapsed);
 

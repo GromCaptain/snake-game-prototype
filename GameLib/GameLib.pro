@@ -81,7 +81,8 @@ SOURCES += \
     Input/Events/InputEvent.cpp \
     Input/Events/KeyboardEvent.cpp \
     Input/Events/MouseButtonEvent.cpp \
-    Input/Events/MouseMoveEvent.cpp
+    Input/Events/MouseMoveEvent.cpp \
+    UI/Components/Background.cpp
 
 HEADERS += \
     Graph/GraphicsManager.h \
@@ -147,4 +148,6 @@ HEADERS += \
     Input/MouseButton.h \
     Input/Events/MouseButtonEvent.h \
     Input/Events/MouseMoveEvent.h \
-    Core/Util/CloneFactory.h
+    Core/Util/CloneFactory.h \
+    UI/Components/Background.h \
+    Core/Util/UnorderedMap.h

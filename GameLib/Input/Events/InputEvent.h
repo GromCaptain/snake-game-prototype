@@ -14,8 +14,12 @@ class InputEvent
 
 	EventType type() const;
 
+	bool handled() const;
+	void setHandled();
+
 	private:
 	EventType type_;
+	bool handled_ = false;
 	};
 
 }

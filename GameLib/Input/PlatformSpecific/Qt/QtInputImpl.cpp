@@ -13,7 +13,7 @@
 namespace Input
 {
 
-const std::map<int, KeyboardKey> InputImpl::QKey2KeyboardKey = {{Qt::Key_Escape, KeyboardKey::Esc}, {Qt::Key_Enter, KeyboardKey::Enter}, {Qt::Key_Space, KeyboardKey::Space}};
+const std::map<int, KeyboardKey> InputImpl::QKey2KeyboardKey = {{Qt::Key_Escape, KeyboardKey::Esc}, {Qt::Key_Return, KeyboardKey::Enter}, {Qt::Key_Space, KeyboardKey::Space}};
 const std::map<Qt::MouseButton, MouseButton> InputImpl::QButton2MouseButton = {{Qt::LeftButton, MouseButton::Left}, {Qt::RightButton, MouseButton::Right}, {Qt::MiddleButton, MouseButton::Middle}};
 
 InputImpl::InputImpl()

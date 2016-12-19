@@ -7,6 +7,7 @@
 
 #include "Graph/GraphicsScene.h"
 #include "Graph/Camera.h"
+#include "UI/UIScene.h"
 
 namespace State
 {
@@ -19,16 +20,23 @@ class IntroState : public GameState
 	void start(std::shared_ptr<SwitchStateInfo> info) override;
 	void update(std::chrono::milliseconds elapsed) override;
 
+	void interruptIntro();
+
 	private:
+	void handleInput();
+
+	bool finished() const;
 	Graphics::Texture prepareFrame(std::chrono::milliseconds msecs);
 	void renderFrame(const Graphics::Texture& frame);
 
 	private:
-	Graphics::GraphicsScene graphicsScene;
-	Graphics::Camera camera;
-	std::chrono::milliseconds totalElapsed;
-	std::chrono::milliseconds introDuration;
-	std::shared_ptr<SwitchStateInfo> switchToLoadingInfo;
+	UI::UIScene uiScene_;
+	Graphics::GraphicsScene graphicsScene_;
+	Graphics::Camera camera_;
+	std::chrono::milliseconds totalElapsed_;
+	std::chrono::milliseconds introDuration_;
+	std::shared_ptr<SwitchStateInfo> switchToLoadingInfo_;
+	bool interrupted_ = false;
 	};
 
 }
