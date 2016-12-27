@@ -28,7 +28,7 @@ void IntroState::start(std::shared_ptr<SwitchStateInfo> info)
 	introDuration_ = loadingInfo -> introDuration;
 	switchToLoadingInfo_ = loadingInfo -> switchToLoadingInfo;
 
-	std::function<void()> interruptCallback = std::bind(IntroState::interruptIntro, this);
+	std::function<void()> interruptCallback = std::bind(&IntroState::interruptIntro, this);
 	uiScene_.registerKeyPressCallback(Input::KeyboardKey::Enter, interruptCallback);
 	uiScene_.registerKeyPressCallback(Input::KeyboardKey::Esc, interruptCallback);
 	uiScene_.registerKeyPressCallback(Input::KeyboardKey::Space, interruptCallback);
