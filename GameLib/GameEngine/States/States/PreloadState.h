@@ -28,10 +28,10 @@ class PreloadState : public GameState
 	void prepareMainWindow();
 
 	private:
-	static const String initConfigName;
-	std::shared_ptr<Async::Action> loadAction;
-	std::shared_ptr<SwitchToIntroInfo> switchInfo;
-	unsigned ScreenWidth, ScreenHeight;
+	static const String initConfigName_;
+	std::shared_ptr<Async::Action> loadAction_;
+	std::shared_ptr<SwitchToIntroInfo> switchInfo_;
+	unsigned ScreenWidth_, ScreenHeight_;
 	};
 
 }

@@ -5,7 +5,6 @@
 #include <map>
 
 #include "Core/Data/String.h"
-#include "Resources/Resources/Byte.h"
 
 class ConfigReader
 	{
@@ -24,7 +23,7 @@ class ConfigReader
 	String property(const String& propName) const;
 
 	private:
-	std::map<String, String> properties;
+	std::map<String, String> properties_;
 	};
 
 #endif // CONFIG_READER_H

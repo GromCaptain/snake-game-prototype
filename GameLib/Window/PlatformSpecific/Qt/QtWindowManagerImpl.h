@@ -16,7 +16,6 @@ class WindowManagerImpl : public QObject
 	Q_OBJECT
 	public:
 	WindowManagerImpl();
-	//WindowManagerImpl(const WindowManagerImpl& winMgr);
 
 	std::shared_ptr<WindowImpl> mainWindowAsync();
 	void doWorkInMainThread(std::function<void()> f);
@@ -32,7 +31,7 @@ class WindowManagerImpl : public QObject
 	void createMainWindow();
 
 	private:
-	std::shared_ptr<WindowImpl> mainWnd;
+	std::shared_ptr<WindowImpl> mainWnd_;
 	};
 
 }

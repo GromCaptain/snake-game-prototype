@@ -34,9 +34,9 @@ class ResourcesManager
 	ResourceID nextId();
 
 	private:
-	std::map<ResourceID, Resource> resources;
-	std::map<ResourceID, ResourcePack> resourcePacks;
-	ResourceID maxId;
+	std::map<ResourceID, Resource> resources_;
+	std::map<ResourceID, ResourcePack> resourcePacks_;
+	ResourceID maxId_;
 	};
 
 }

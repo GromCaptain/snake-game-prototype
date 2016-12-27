@@ -21,25 +21,25 @@
 namespace State
 {
 
-const String PreloadState::initConfigName = "init.cfg";
+const String PreloadState::initConfigName_ = "init.cfg";
 
 PreloadState::PreloadState():
-	loadAction(nullptr),
-	switchInfo(nullptr),
-	ScreenWidth(100), ScreenHeight(100)
+	loadAction_(nullptr),
+	switchInfo_(nullptr),
+	ScreenWidth_(100), ScreenHeight_(100)
 	{
 	}
 
 void PreloadState::start(std::shared_ptr<SwitchStateInfo>)
 	{
 	auto f = std::bind(&PreloadState::prepareApplication, this);
-	loadAction = std::make_shared<Async::Action>(f);
-	Async::doAsync(loadAction);
+	loadAction_ = std::make_shared<Async::Action>(f);
+	Async::doAsync(loadAction_);
 	}
 void PreloadState::update(std::chrono::milliseconds elapsed)
 	{
-	if (loadAction -> done())
-		switchState(StateType::Intro, switchInfo);
+	if (loadAction_ -> done())
+		switchState(StateType::Intro, switchInfo_);
 	}
 
 void PreloadState::prepareApplication()
@@ -51,14 +51,14 @@ void PreloadState::prepareApplication()
 	}
 ConfigReader PreloadState::initConfigReader()
 	{
-	Resources::ResourceID initCfgFileId = Resources::ResourcesManager::instance().getResourceId(initConfigName);
+	Resources::ResourceID initCfgFileId = Resources::ResourcesManager::instance().getResourceId(initConfigName_);
 	Resources::Resource initCfgData = Resources::ResourcesManager::instance().getResource(initCfgFileId);
 	return ConfigReader(initCfgData.asString());
 	}
 void PreloadState::parseConfig(const ConfigReader &cfg)
 	{
-	ScreenWidth = cfg.getInt("ScreenWidth");
-	ScreenHeight = cfg.getInt("ScreenHeight");
+	ScreenWidth_ = cfg.getInt("ScreenWidth");
+	ScreenHeight_ = cfg.getInt("ScreenHeight");
 	}
 
 void PreloadState::loadData(const ConfigReader& cfg)
@@ -101,7 +101,7 @@ void PreloadState::loadData(const ConfigReader& cfg)
 	int hourglassX = cfg.getInt("HourglassX"), hourglassY = cfg.getInt("HourglassY");
 
 	auto switchToLoadingInfo = std::make_shared<SwitchToLoadingInfo>(loadStateCfgFileName, loadBkgTexture, loadPBarAnims, loadPBarGeometry, hourglassAnim, Point(hourglassX, hourglassY));
-	switchInfo = std::make_shared<SwitchToIntroInfo>(std::chrono::milliseconds(introDurationMSecs), switchToLoadingInfo, introSplashAnim);
+	switchInfo_ = std::make_shared<SwitchToIntroInfo>(std::chrono::milliseconds(introDurationMSecs), switchToLoadingInfo, introSplashAnim);
 
 	String globalSettingsFileName = cfg.getString("SettingsConfigFile");
 	GameEngine::Settings::globalSettings().loadFromFile(globalSettingsFileName);
@@ -111,7 +111,7 @@ void PreloadState::prepareMainWindow()
 	auto& wndMgr = Window::WindowManager::instance();
 	Window::Window& mainWnd = wndMgr.mainWindowAsync();
 	wndMgr.doWorkInMainThread(std::bind(&Window::Window::setWindowType, &mainWnd, Window::WindowType::Windowed));
-	wndMgr.doWorkInMainThread(std::bind(&Window::Window::setResolution, &mainWnd, ScreenWidth, ScreenHeight));
+	wndMgr.doWorkInMainThread(std::bind(&Window::Window::setResolution, &mainWnd, ScreenWidth_, ScreenHeight_));
 	}
 
 }

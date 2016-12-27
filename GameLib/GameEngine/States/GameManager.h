@@ -30,10 +30,10 @@ class GameManager
 	void initWindows();
 
 	private:
-	std::map<State::StateType, State::StatePtr> states;
-	State::StatePtr currState;
-	Timer timer;
-	bool readyToExit;
+	std::map<State::StateType, State::StatePtr> states_;
+	State::StatePtr currState_;
+	Timer timer_;
+	bool readyToExit_;
 	};
 
 }

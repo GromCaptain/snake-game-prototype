@@ -36,13 +36,13 @@ class LoadingState : public GameState
 	void renderFrame(const Graphics::Texture& frame);
 
 	private:
-	Graphics::GraphicsScene graphicsScene;
-	Graphics::Camera camera;
-	UI::UIScene uiScene;
-	std::shared_ptr<UI::ProgressBar> loadingProgressBar;
-	bool graphicsInitialized = false;
+	Graphics::GraphicsScene graphicsScene_;
+	Graphics::Camera camera_;
+	UI::UIScene uiScene_;
+	std::shared_ptr<UI::ProgressBar> loadingProgressBar_;
+	bool graphicsInitialized_ = false;
 
-	std::chrono::milliseconds totalElapsedForDemo = std::chrono::milliseconds(0);
+	std::chrono::milliseconds totalElapsedForDemo_ = std::chrono::milliseconds(0);
 	};
 
 }

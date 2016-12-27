@@ -24,24 +24,24 @@ GameManager& GameManager::instance()
 
 void GameManager::switchToState(State::StateType stateType, std::shared_ptr<State::SwitchStateInfo> switchInfo)
 	{
-	currState = states[stateType];
-	currState -> start(switchInfo);
+	currState_ = states_[stateType];
+	currState_ -> start(switchInfo);
 	}
 
 void GameManager::start()
 	{
 	init();
-	currState = states[State::StateType::Preload];
-	currState -> start(std::shared_ptr<State::SwitchStateInfo>(nullptr));
+	currState_ = states_[State::StateType::Preload];
+	currState_ -> start(std::shared_ptr<State::SwitchStateInfo>(nullptr));
 	const std::chrono::milliseconds timerInterval = std::chrono::milliseconds(100);
 	std::function<void(std::chrono::milliseconds)> pUpdate = std::bind(&GameManager::update, this, std::placeholders::_1);
-	timer.start(timerInterval, pUpdate);
+	timer_.start(timerInterval, pUpdate);
 	}
 
 void GameManager::update(std::chrono::milliseconds msecs)
 	{
 	Window::WindowManager::instance().prepareInput();
-	currState -> update(msecs);
+	currState_ -> update(msecs);
 	}
 
 void GameManager::init()
@@ -54,11 +54,11 @@ void GameManager::init()
 void GameManager::initStates()
 	{
 	using namespace State;
-	states[StateType::Preload]	= std::shared_ptr<GameState>(new PreloadState());
-	states[StateType::Loading]	= std::shared_ptr<GameState>(new LoadingState());
-	states[StateType::Intro]	= std::shared_ptr<GameState>(new IntroState());
-	states[StateType::Menu]		= std::shared_ptr<GameState>(new MenuState());
-	states[StateType::Main]		= std::shared_ptr<GameState>(new MainState());
+	states_[StateType::Preload]	= std::shared_ptr<GameState>(new PreloadState());
+	states_[StateType::Loading]	= std::shared_ptr<GameState>(new LoadingState());
+	states_[StateType::Intro]	= std::shared_ptr<GameState>(new IntroState());
+	states_[StateType::Menu]		= std::shared_ptr<GameState>(new MenuState());
+	states_[StateType::Main]		= std::shared_ptr<GameState>(new MainState());
 	}
 
 void GameManager::initResources()

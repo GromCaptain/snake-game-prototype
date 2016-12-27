@@ -14,7 +14,6 @@ class WindowManager
 	{
 	public:
 	static WindowManager& instance();
-	//WindowManager(const WindowManagerImpl& impl);
 
 	Window& mainWindowAsync();
 	void doWorkInMainThread(std::function<void()> f);
@@ -26,7 +25,7 @@ class WindowManager
 
 	private:
 	std::shared_ptr<WindowManagerImpl> pImpl;
-	std::shared_ptr<Window> mainWnd;
+	std::shared_ptr<Window> mainWnd_;
 	};
 
 }

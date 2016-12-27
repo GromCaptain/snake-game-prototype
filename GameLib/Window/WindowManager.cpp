@@ -12,11 +12,6 @@ WindowManager::WindowManager():
 	{
 	}
 
-//WindowManager::WindowManager(const WindowManagerImpl& impl):
-//	pImpl(new WindowManagerImpl(impl))
-//	{
-//	}
-
 WindowManager& WindowManager::instance()
 	{
 	static WindowManager mgr;
@@ -25,9 +20,9 @@ WindowManager& WindowManager::instance()
 
 Window& WindowManager::mainWindowAsync()
 	{
-	if (!mainWnd)
-		mainWnd = std::shared_ptr<Window>(new Window(pImpl -> mainWindowAsync()));
-	return *mainWnd;
+	if (!mainWnd_)
+		mainWnd_ = std::shared_ptr<Window>(new Window(pImpl -> mainWindowAsync()));
+	return *mainWnd_;
 	}
 
 void WindowManager::doWorkInMainThread(std::function<void()> f)

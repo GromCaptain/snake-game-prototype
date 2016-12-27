@@ -39,7 +39,7 @@ class StringImpl
 	StringImpl(const QString& s);
 
 	private:
-	QString string;
+	QString string_;
 	};
 
 std::ostream& operator<<(std::ostream& out, const StringImpl& s);

@@ -4,7 +4,7 @@
 #include <utility>
 
 ConfigReader::ConfigReader(const String& configurationText):
-	properties(parseConfig(configurationText))
+	properties_(parseConfig(configurationText))
 	{
 	}
 
@@ -41,7 +41,7 @@ std::vector<String> ConfigReader::getArray(const String& propName) const
 
 bool ConfigReader::propertyExist(const String& propName) const
 	{
-	return properties.find(propName) != properties.end();
+	return properties_.find(propName) != properties_.end();
 	}
 
 std::map<String, String> ConfigReader::parseConfig(const String& str)
@@ -68,6 +68,6 @@ std::pair<String, String> ConfigReader::parseLine(const String& line)
 
 String ConfigReader::property(const String& propName) const
 	{
-	return properties.at(propName);
+	return properties_.at(propName);
 	}
 
