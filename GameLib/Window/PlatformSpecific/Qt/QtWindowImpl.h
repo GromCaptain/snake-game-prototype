@@ -44,7 +44,7 @@ class WindowImpl : public QWidget
 	public slots:
 
 	private:
-	QImage displayableImage;
+	QImage displayableImage_;
 	Input::Input input_;
 	};
 

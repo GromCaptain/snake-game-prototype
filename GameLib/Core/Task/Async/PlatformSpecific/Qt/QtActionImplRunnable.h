@@ -10,9 +10,6 @@
 namespace Async
 {
 
-//class ActionImpl;
-//class ActionImpl::QRunnableAction;
-
 class ActionImpl::QRunnableAction : public QRunnable
 	{
 	public:
@@ -21,7 +18,7 @@ class ActionImpl::QRunnableAction : public QRunnable
 	virtual void run() override;
 
 	private:
-	std::function<void()> action;
+	std::function<void()> action_;
 	ActionImpl& owner_;
 	};
 

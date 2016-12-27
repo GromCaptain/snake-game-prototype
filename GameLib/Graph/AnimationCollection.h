@@ -18,7 +18,6 @@ class AnimationCollection
 	public:
 	AnimationCollection(const Animation& animation, const String& animationName);
 	explicit AnimationCollection(const std::map<String, Animation>& animations);
-	explicit AnimationCollection(const ResourcePack& resourcePack);
 
 	bool contains(const String& animationName) const;
 	const Animation& animation(const String& name) const;

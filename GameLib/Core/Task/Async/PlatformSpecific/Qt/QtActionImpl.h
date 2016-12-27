@@ -22,8 +22,8 @@ class ActionImpl
 	QRunnableAction* runnable() const;
 
 	private:
-	QRunnableAction* qtAction;
-	std::atomic_bool isDone;
+	QRunnableAction* qtAction_;
+	std::atomic_bool isDone_;
 	};
 
 }

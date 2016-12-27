@@ -26,7 +26,7 @@ class ResourceImpl
 	explicit ResourceImpl(const QByteArray& b);
 
 	private:
-	QByteArray bytes;
+	QByteArray bytes_;
 	};
 
 }

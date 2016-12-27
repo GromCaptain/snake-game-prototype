@@ -12,8 +12,6 @@ namespace GameEngine
 class Settings
 	{
 	public:
-//	Settings(const String& settingsFileName);
-
 	void loadFromFile(const String& settingsFileName);
 	static Settings& globalSettings();
 

@@ -5,13 +5,13 @@ namespace Async
 {
 
 ActionImpl::ActionImpl(const std::function<void()>& f):
-	qtAction(new QRunnableAction(f, *this)), isDone(false)
+	qtAction_(new QRunnableAction(f, *this)), isDone_(false)
 	{
 	}
 
 bool ActionImpl::done() const
 	{
-	return isDone.load();
+	return isDone_.load();
 	}
 
 void ActionImpl::wait()
@@ -21,12 +21,12 @@ void ActionImpl::wait()
 
 void ActionImpl::reportDone()
 	{
-	isDone.store(true);
+	isDone_.store(true);
 	}
 
 ActionImpl::QRunnableAction* ActionImpl::runnable() const
 	{
-	return qtAction;
+	return qtAction_;
 	}
 
 }

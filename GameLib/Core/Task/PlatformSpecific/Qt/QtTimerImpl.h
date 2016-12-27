@@ -18,9 +18,9 @@ class TimerImpl : public QObject
 	void tick();
 
 	private:
-	QTimer timer;
-	std::function<void(std::chrono::milliseconds)> onTick;
-	std::chrono::milliseconds timerInterval;
+	QTimer timer_;
+	std::function<void(std::chrono::milliseconds)> onTick_;
+	std::chrono::milliseconds timerInterval_;
 	};
 
 #endif // QT_TIMER_IMPL_H

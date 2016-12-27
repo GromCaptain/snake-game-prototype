@@ -7,7 +7,7 @@ namespace Resources
 {
 
 ResourcesManager::ResourcesManager():
-	maxId(0)
+	maxId_(0)
 	{
 	}
 
@@ -26,36 +26,36 @@ ResourceID ResourcesManager::getResourceId(const String& fileName)
 	{
 	auto resource = loadResourceFromFileSystem(fileName);
 	ResourceID id = nextId();
-	resources.insert(std::make_pair(id, resource));
+	resources_.insert(std::make_pair(id, resource));
 	return id;
 	}
 
 bool ResourcesManager::resourceExist(ResourceID id) const
 	{
-	return resources.find(id) != resources.end();
+	return resources_.find(id) != resources_.end();
 	}
 
 const Resource& ResourcesManager::getResource(ResourceID id) const
 	{
-	return resources.at(id);
+	return resources_.at(id);
 	}
 
 ResourceID ResourcesManager::getPackId(const String& fileName)
 	{
 	auto pack = loadPackFromFileSystem(fileName);
 	ResourceID id = nextId();
-	resourcePacks.insert(std::make_pair(id, pack));
+	resourcePacks_.insert(std::make_pair(id, pack));
 	return id;
 	}
 
 bool ResourcesManager::packExist(ResourceID id) const
 	{
-	return resourcePacks.find(id) != resourcePacks.end();
+	return resourcePacks_.find(id) != resourcePacks_.end();
 	}
 
 const ResourcePack&ResourcesManager::getPack(ResourceID id) const
 	{
-	return resourcePacks.at(id);
+	return resourcePacks_.at(id);
 	}
 
 Resource ResourcesManager::loadResourceFromFileSystem(const String& fileName)
@@ -94,7 +94,7 @@ ResourcePack ResourcesManager::loadPackFromFileSystem(const String& fileName)
 
 ResourceID ResourcesManager::nextId()
 	{
-	return ++maxId;
+	return ++maxId_;
 	}
 
 }

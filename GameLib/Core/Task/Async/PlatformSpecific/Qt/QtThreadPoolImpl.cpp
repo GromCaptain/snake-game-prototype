@@ -9,14 +9,14 @@ namespace Async
 {
 
 ThreadPoolImpl::ThreadPoolImpl():
-	threadPool(new QThreadPool), isOwner(true)
+	threadPool_(new QThreadPool), isOwner_(true)
 	{
 	}
 
 ThreadPoolImpl::~ThreadPoolImpl()
 	{
-	if (isOwner)
-		delete threadPool;
+	if (isOwner_)
+		delete threadPool_;
 	}
 
 std::shared_ptr<ThreadPoolImpl> ThreadPoolImpl::mainThreadPool()
@@ -27,11 +27,11 @@ std::shared_ptr<ThreadPoolImpl> ThreadPoolImpl::mainThreadPool()
 
 void ThreadPoolImpl::addAction(std::shared_ptr<ActionImpl> action)
 	{
-	threadPool -> start(action -> runnable());
+	threadPool_ -> start(action -> runnable());
 	}
 
 ThreadPoolImpl::ThreadPoolImpl(QThreadPool* pool, bool isPoolOwner):
-	threadPool(pool), isOwner(isPoolOwner)
+	threadPool_(pool), isOwner_(isPoolOwner)
 	{
 	}
 

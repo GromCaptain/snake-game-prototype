@@ -18,8 +18,6 @@ class ThreadPoolImpl
 
 	ThreadPoolImpl(const ThreadPoolImpl&) = delete;
 
-//	static ThreadPoolImpl& mainThreadPool();
-
 	static std::shared_ptr<ThreadPoolImpl> mainThreadPool();
 
 	void addAction(std::shared_ptr<ActionImpl> action);
@@ -28,8 +26,8 @@ class ThreadPoolImpl
 	ThreadPoolImpl(QThreadPool* pool, bool isPoolOwner = false);
 
 	private:
-	QThreadPool* threadPool;
-	bool isOwner;
+	QThreadPool* threadPool_;
+	bool isOwner_;
 	};
 
 }

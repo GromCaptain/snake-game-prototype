@@ -25,7 +25,7 @@ void WindowImpl::setResolution(unsigned W, unsigned H)
 
 void WindowImpl::renderTexture(const Graphics::TextureImpl& texture)
 	{
-	displayableImage = texture.image();
+	displayableImage_ = texture.image();
 	emit displayableImageChanged();
 	}
 
@@ -37,7 +37,7 @@ Input::Input& WindowImpl::input()
 void WindowImpl::paintEvent(QPaintEvent*)
 	{
 	QPainter painter(this);
-	painter.drawImage(rect(), displayableImage);
+	painter.drawImage(rect(), displayableImage_);
 	}
 
 void WindowImpl::keyPressEvent(QKeyEvent* event)

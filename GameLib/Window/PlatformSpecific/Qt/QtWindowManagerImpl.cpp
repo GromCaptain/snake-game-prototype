@@ -8,21 +8,17 @@ namespace Window
 {
 
 WindowManagerImpl::WindowManagerImpl():
-	mainWnd(nullptr)
+	mainWnd_(nullptr)
 	{
 	qRegisterMetaType< std::function<void()> >("std::function<void()>");
 	connect(this, &WindowManagerImpl::requestForWork, this, &WindowManagerImpl::doWork, Qt::QueuedConnection);
 	}
 
-//WindowManagerImpl::WindowManagerImpl(const WindowManagerImpl& winMgr)
-//	{
-//	}
-
 std::shared_ptr<WindowImpl> WindowManagerImpl::mainWindowAsync()
 	{
-	if (! mainWnd)
+	if (! mainWnd_)
 		doWorkInMainThread(std::bind(&WindowManagerImpl::createMainWindow, this));
-	return mainWnd;
+	return mainWnd_;
 	}
 
 void WindowManagerImpl::doWorkInMainThread(std::function<void()> f)
@@ -41,8 +37,8 @@ void WindowManagerImpl::doWork(std::function<void()> f)
 
 void WindowManagerImpl::createMainWindow()
 	{
-	mainWnd = std::shared_ptr<WindowImpl>(new WindowImpl);
-	mainWnd -> show();
+	mainWnd_ = std::shared_ptr<WindowImpl>(new WindowImpl);
+	mainWnd_ -> show();
 	}
 
 }

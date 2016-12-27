@@ -12,28 +12,28 @@ ResourceImpl::ResourceImpl()
 	}
 
 ResourceImpl::ResourceImpl(const QByteArray& b):
-	bytes(b)
+	bytes_(b)
 	{
 	}
 
 const Byte* ResourceImpl::data() const
 	{
-	return bytes.data();
+	return bytes_.data();
 	}
 
 unsigned ResourceImpl::dataSize() const
 	{
-	return bytes.length();
+	return bytes_.length();
 	}
 
 String ResourceImpl::asString() const
 	{
-	return bytes.toStdString().c_str();
+	return bytes_.toStdString().c_str();
 	}
 
 QByteArray ResourceImpl::byteArray() const
 	{
-	return bytes;
+	return bytes_;
 	}
 
 ResourceImpl ResourceImpl::loadFromFileSystem(const String& fileName)
