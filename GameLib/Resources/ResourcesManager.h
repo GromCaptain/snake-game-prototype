@@ -1,6 +1,7 @@
 #ifndef RESOURCES_MANAGER_H
 #define RESOURCES_MANAGER_H
 
+#include <functional>
 #include <map>
 
 #include "Resources/ResourceID.h"
@@ -24,6 +25,7 @@ class ResourcesManager
 	const Resource& getResource(ResourceID id) const;
 
 	ResourceID getPackId(const String& fileName);
+	ResourceID getPackId(const String &fileName, std::function<void(double)> progressUpdater);
 	bool packExist(ResourceID id) const;
 	const ResourcePack& getPack(ResourceID id) const;
 
@@ -31,6 +33,11 @@ class ResourcesManager
 	ResourcesManager();
 	static Resource loadResourceFromFileSystem(const String& fileName);
 	static ResourcePack loadPackFromFileSystem(const String& fileName);
+
+	using ProgressUpdateCallback = std::function<void(double)>;
+	static ResourcePack loadPackFromFileSystem(const String& fileName, ProgressUpdateCallback progressUpdater);
+	static ResourcePack loadPackFromFileSystem(const String& fileName, double alreadyLoaded, double packLoadShare, ProgressUpdateCallback progressUpdater);
+
 	ResourceID nextId();
 
 	private:

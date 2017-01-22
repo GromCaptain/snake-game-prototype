@@ -1,25 +1,27 @@
 #ifndef SWITCH_TO_LOADING_INFO_H
 #define SWITCH_TO_LOADING_INFO_H
 
+#include <functional>
+
 #include "SwitchStateInfo.h"
 #include "Core/Data/String.h"
-#include "Core/Data/Geometry/Geometry.h"
-#include "Graph/Animation.h"
-#include "Graph/AnimationCollection.h"
-#include "Graph/Texture.h"
+
+namespace Resources
+{
+class ResourcePack;
+}
 
 namespace State
 {
 
+using ProgressUpdateCallback = std::function<void(double)>;
+using StateInitCallback = std::function<void(const Resources::ResourcePack&, ProgressUpdateCallback)>;
+
 struct SwitchToLoadingInfo : public SwitchStateInfo
 	{
-	SwitchToLoadingInfo(const String& loadStateCfgFName, const Graphics::Texture& loadingBkg, const Graphics::AnimationCollection& loadingPBarAnims, const Geometry& loadingPBarGeom, const Graphics::Animation& hourglassAnim, const Point& hourglassPos);
+	SwitchToLoadingInfo(const String& loadStateCfgFName, StateInitCallback initCallback);
 	const String loadStateCfgFileName;
-	const Graphics::Texture loadingBackground;
-	const Graphics::AnimationCollection loadingProgressBarAnimations;
-	const Geometry loadingProgressBarGeometry;
-	const Graphics::Animation hourglassAnimation;
-	const Point hourglassPosition;
+	StateInitCallback initFromPackCallback;
 	};
 
 }
