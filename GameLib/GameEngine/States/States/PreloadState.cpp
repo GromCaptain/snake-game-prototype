@@ -14,7 +14,7 @@
 #include "Resources/Resources/ResourceID.h"
 #include "Resources/ResourcesManager.h"
 #include "SwitchInfo/SwitchToIntroInfo.h"
-#include "SwitchInfo/SwitchToLoadingInfo.h"
+#include "SwitchInfo/SwitchIntroToLoadingInfo.h"
 #include "Window/Window.h"
 #include "Window/WindowManager.h"
 
@@ -100,7 +100,8 @@ void PreloadState::loadData(const ConfigReader& cfg)
 
 	int hourglassX = cfg.getInt("HourglassX"), hourglassY = cfg.getInt("HourglassY");
 
-	auto switchToLoadingInfo = std::make_shared<SwitchToLoadingInfo>(loadStateCfgFileName, loadBkgTexture, loadPBarAnims, loadPBarGeometry, hourglassAnim, Point(hourglassX, hourglassY));
+	auto mainMenuInitCallback = [](const ResourcePack&, ProgressUpdateCallback){};
+	auto switchToLoadingInfo = std::make_shared<SwitchIntroToLoadingInfo>(loadStateCfgFileName, mainMenuInitCallback, loadBkgTexture, loadPBarAnims, loadPBarGeometry, hourglassAnim, Point(hourglassX, hourglassY));
 	switchInfo_ = std::make_shared<SwitchToIntroInfo>(std::chrono::milliseconds(introDurationMSecs), switchToLoadingInfo, introSplashAnim);
 
 	String globalSettingsFileName = cfg.getString("SettingsConfigFile");

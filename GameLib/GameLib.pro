@@ -82,7 +82,8 @@ SOURCES += \
     Input/Events/KeyboardEvent.cpp \
     Input/Events/MouseButtonEvent.cpp \
     Input/Events/MouseMoveEvent.cpp \
-    UI/Components/Background.cpp
+    UI/Components/Background.cpp \
+    GameEngine/States/States/SwitchInfo/SwitchIntroToLoadingInfo.cpp
 
 HEADERS += \
     Graph/GraphicsManager.h \
@@ -150,4 +151,5 @@ HEADERS += \
     Input/Events/MouseMoveEvent.h \
     Core/Util/CloneFactory.h \
     UI/Components/Background.h \
-    Core/Util/UnorderedMap.h
+    Core/Util/UnorderedMap.h \
+    GameEngine/States/States/SwitchInfo/SwitchIntroToLoadingInfo.h
