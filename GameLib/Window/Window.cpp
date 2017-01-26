@@ -1,7 +1,7 @@
 #include "Window.h"
 #include "PlatformSpecific/Qt/QtWindowImpl.h"
 
-#include "Graph/Texture.h"
+#include "Graph/GraphCore/Texture.h"
 
 namespace Window
 {

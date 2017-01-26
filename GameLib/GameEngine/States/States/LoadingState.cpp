@@ -6,8 +6,8 @@
 
 #include "Core/Task/Async/Async.h"
 #include "GameEngine/Settings.h"
-#include "Graph/Actor.h"
-#include "Graph/Animation.h"
+#include "Graph/Render/GraphicsScene/Actor.h"
+#include "Graph/GraphCore/Animation.h"
 #include "Resources/ResourcesManager.h"
 #include "SwitchInfo/SwitchIntroToLoadingInfo.h"
 #include "UI/Components/ProgressBar.h"

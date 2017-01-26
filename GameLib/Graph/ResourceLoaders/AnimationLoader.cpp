@@ -1,6 +1,6 @@
 #include "AnimationLoader.h"
 
-#include "../Animation.h"
+#include "../GraphCore/Animation.h"
 #include "Core/Data/Geometry/Rectangle.h"
 #include "Core/Util/ConfigReader.h"
 #include "Resources/Resources/Resource.h"

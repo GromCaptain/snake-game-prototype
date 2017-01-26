@@ -1,7 +1,7 @@
 #include "AnimationCollectionLoader.h"
 
-#include "../Animation.h"
-#include "../AnimationCollection.h"
+#include "../GraphCore/Animation.h"
+#include "../GraphCore/AnimationCollection.h"
 #include "AnimationLoader.h"
 #include "Resources/Resources/Resource.h"
 #include "Resources/Resources/ResourcePack.h"

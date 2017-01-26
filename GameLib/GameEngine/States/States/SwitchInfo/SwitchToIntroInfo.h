@@ -5,7 +5,7 @@
 #include <memory>
 
 #include "SwitchStateInfo.h"
-#include "Graph/Animation.h"
+#include "Graph/GraphCore/Animation.h"
 
 namespace State
 {

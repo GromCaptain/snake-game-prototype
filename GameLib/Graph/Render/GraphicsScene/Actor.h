@@ -5,8 +5,8 @@
 #include <chrono>
 #include <functional>
 
-#include "Animation.h"
-#include "AnimationCollection.h"
+#include "Graph/GraphCore/Animation.h"
+#include "Graph/GraphCore/AnimationCollection.h"
 
 #include "Core/Data/String.h"
 #include "Core/Data/Geometry/Point.h"

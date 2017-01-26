@@ -5,8 +5,8 @@
 
 #include "GameState.h"
 
-#include "Graph/Camera.h"
-#include "Graph/GraphicsScene.h"
+#include "Graph/Render/GraphicsScene/Camera.h"
+#include "Graph/Render/GraphicsScene/GraphicsScene.h"
 #include "SwitchInfo/SwitchToLoadingInfo.h"
 #include "UI/UIScene.h"
 

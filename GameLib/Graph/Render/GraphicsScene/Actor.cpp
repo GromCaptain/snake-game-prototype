@@ -2,8 +2,8 @@
 
 #include <utility>
 
-#include "Animation.h"
-#include "Texture.h"
+#include "Graph/GraphCore/Animation.h"
+#include "Graph/GraphCore/Texture.h"
 #include "Core/Util/Assert.h"
 
 namespace Graphics

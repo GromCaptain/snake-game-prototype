@@ -7,7 +7,7 @@
 #include "Core/Data/Geometry/Rectangle.h"
 #include "Core/Data/Geometry/Size.h"
 #include "Core/Util/Assert.h"
-#include "Graph/Color.h"
+#include "Graph/GraphCore/Color.h"
 #include "Resources/Resources/PlatformSpecific/Qt/QtResourceImpl.h"
 
 namespace Graphics

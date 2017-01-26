@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-#include "Texture.h"
+#include "Graph/GraphCore/Texture.h"
 #include "GraphicsScene.h"
 #include "Core/Data/Geometry/Rectangle.h"
 

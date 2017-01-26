@@ -30,15 +30,15 @@ SOURCES += \
     Resources/ResourcesManager.cpp \
     Window/Window.cpp \
     Window/WindowManager.cpp \
-    Graph/Texture.cpp \
-    Graph/GraphicsScene.cpp \
-    Graph/Actor.cpp \
-    Graph/PlatformSpecific/Qt/QtTextureImpl.cpp \
-    Graph/Camera.cpp \
-    Graph/Animation.cpp \
-    Graph/GraphicsSceneLayer.cpp \
-    Graph/Color.cpp \
-    Graph/AnimationCollection.cpp \
+    Graph/GraphCore/Texture.cpp \
+    Graph/Render/GraphicsScene/GraphicsScene.cpp \
+    Graph/Render/GraphicsScene/Actor.cpp \
+    Graph/GraphCore/PlatformSpecific/Qt/QtTextureImpl.cpp \
+    Graph/Render/GraphicsScene/Camera.cpp \
+    Graph/GraphCore/Animation.cpp \
+    Graph/Render/GraphicsScene/GraphicsSceneLayer.cpp \
+    Graph/GraphCore/Color.cpp \
+    Graph/GraphCore/AnimationCollection.cpp \
     UI/Components/ProgressBar.cpp \
     UI/Components/UIComponent.cpp \
     UI/UIScene.cpp \
@@ -94,15 +94,15 @@ HEADERS += \
     Window/Window.h \
     Window/WindowManager.h \
     Window/WindowType.h \
-    Graph/Texture.h \
-    Graph/GraphicsScene.h \
-    Graph/Actor.h \
-    Graph/PlatformSpecific/Qt/QtTextureImpl.h \
-    Graph/Camera.h \
-    Graph/Animation.h \
-    Graph/GraphicsSceneLayer.h \
-    Graph/Color.h \
-    Graph/AnimationCollection.h \
+    Graph/GraphCore/Texture.h \
+    Graph/Render/GraphicsScene/GraphicsScene.h \
+    Graph/Render/GraphicsScene/Actor.h \
+    Graph/GraphCore/PlatformSpecific/Qt/QtTextureImpl.h \
+    Graph/Render/GraphicsScene/Camera.h \
+    Graph/GraphCore/Animation.h \
+    Graph/Render/GraphicsScene/GraphicsSceneLayer.h \
+    Graph/GraphCore/Color.h \
+    Graph/GraphCore/AnimationCollection.h \
     UI/Components/ProgressBar.h \
     UI/Components/UIComponent.h \
     UI/UIScene.h \

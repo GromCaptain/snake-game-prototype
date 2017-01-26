@@ -6,7 +6,7 @@
 #include "Core/Util/ConfigReader.h"
 #include "GameEngine/Settings.h"
 #include "GameEngine/States/GameManager.h"
-#include "Graph/Animation.h"
+#include "Graph/GraphCore/Animation.h"
 #include "Graph/GraphicsManager.h"
 #include "Graph/ResourceLoaders/AnimationLoader.h"
 #include "Graph/ResourceLoaders/AnimationCollectionLoader.h"

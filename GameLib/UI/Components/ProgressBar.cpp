@@ -1,8 +1,8 @@
 #include "ProgressBar.h"
 
 #include "Core/Data/Geometry/Rectangle.h"
-#include "Graph/Animation.h"
-#include "Graph/AnimationCollection.h"
+#include "Graph/GraphCore/Animation.h"
+#include "Graph/GraphCore/AnimationCollection.h"
 
 namespace UI
 {

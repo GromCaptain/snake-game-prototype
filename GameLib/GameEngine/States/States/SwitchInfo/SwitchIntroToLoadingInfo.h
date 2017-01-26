@@ -3,9 +3,9 @@
 
 #include "SwitchToLoadingInfo.h"
 #include "Core/Data/Geometry/Geometry.h"
-#include "Graph/Animation.h"
-#include "Graph/AnimationCollection.h"
-#include "Graph/Texture.h"
+#include "Graph/GraphCore/Animation.h"
+#include "Graph/GraphCore/AnimationCollection.h"
+#include "Graph/GraphCore/Texture.h"
 
 class String;
 

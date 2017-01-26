@@ -2,7 +2,7 @@
 
 #include <QPainter>
 
-#include "Graph/PlatformSpecific/Qt/QtTextureImpl.h"
+#include "Graph/GraphCore/PlatformSpecific/Qt/QtTextureImpl.h"
 #include "Input/PlatformSpecific/Qt/QtInputImpl.h"
 
 namespace Window
