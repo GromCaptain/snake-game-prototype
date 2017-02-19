@@ -11,7 +11,7 @@ class Texture;
 class InitialRenderingStage
 	{
 	public:
-	InitialRenderingStage();
+	virtual ~InitialRenderingStage();
 	virtual Texture renderFrame() const = 0;
 	virtual void update(std::chrono::milliseconds elapsed) = 0;
 	};

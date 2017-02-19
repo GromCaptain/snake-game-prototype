@@ -11,8 +11,7 @@ class Texture;
 class IntermediateRenderingStage
 	{
 	public:
-	IntermediateRenderingStage();
-
+	virtual ~IntermediateRenderingStage();
 	virtual Texture modifyFrame(const Texture& frame) const = 0;
 	virtual void update(std::chrono::milliseconds elapsed) = 0;
 	};
