@@ -4,6 +4,8 @@
 #include "Point.h"
 #include "Size.h"
 
+class Rectangle;
+
 enum class SizePolicy { Fixed, Scalable };
 
 class Geometry
@@ -16,6 +18,7 @@ class Geometry
 
 	Point position() const;
 	Size size() const;
+	Rectangle rect() const;
 
 	void resizeAfterScreen(const Size& screenSize);
 

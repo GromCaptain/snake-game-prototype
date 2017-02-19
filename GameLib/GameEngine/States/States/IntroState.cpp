@@ -3,19 +3,23 @@
 #include <cassert>
 #include <functional>
 
+#include "Core/Data/Geometry/Rectangle.h"
 #include "GameEngine/Settings.h"
+#include "Graph/Render/SingleAnimationRenderer.h"
+#include "Graph/Render/UIGraphicsScene/UIGraphicsScenePage.h"
 #include "Input/Input.h"
 #include "SwitchInfo/SwitchToIntroInfo.h"
 #include "Window/Window.h"
 #include "Window/WindowManager.h"
 
-#include <QDebug>
-
 namespace State
 {
 
 IntroState::IntroState():
-	uiScene_(), graphicsScene_(), camera_(graphicsScene_)
+	uiScene_(),
+	splashAnimRenderer_(new Graphics::SingleAnimationRenderer()),
+	uiGraphicsScene_(new Graphics::UIGraphicsScene<UIPage>({ UIPage::Main }, UIPage::Main)),
+	renderer_(splashAnimRenderer_, {})
 	{
 	}
 
@@ -29,18 +33,11 @@ void IntroState::start(std::shared_ptr<SwitchStateInfo> info)
 	switchToLoadingInfo_ = loadingInfo -> switchToLoadingInfo;
 
 	std::function<void()> interruptCallback = std::bind(&IntroState::interruptIntro, this);
-	uiScene_.registerKeyPressCallback(Input::KeyboardKey::Enter, interruptCallback);
-	uiScene_.registerKeyPressCallback(Input::KeyboardKey::Esc, interruptCallback);
-	uiScene_.registerKeyPressCallback(Input::KeyboardKey::Space, interruptCallback);
+	uiScene_.registerBkgKeyPressCallback(Input::KeyboardKey::Enter, interruptCallback);
+	uiScene_.registerBkgKeyPressCallback(Input::KeyboardKey::Esc, interruptCallback);
+	uiScene_.registerBkgKeyPressCallback(Input::KeyboardKey::Space, interruptCallback);
 
-	auto splashActor = std::make_shared<Graphics::Actor>(Point(0, 0), loadingInfo -> splashAnimation);
-	graphicsScene_.addActor(Graphics::GraphicsScene::Layer::Background, splashActor);
-
-	auto settings = GameEngine::Settings::globalSettings();
-	auto resolution = settings.resolution();
-	graphicsScene_.resizeArea(resolution);
-	camera_.setResolution(resolution);
-	camera_.moveTo({ resolution.width() / 2, resolution.height() / 2 });
+	splashAnimRenderer_ -> setAnimation(loadingInfo -> splashAnimation);
 	}
 void IntroState::update(std::chrono::milliseconds elapsed)
 	{
@@ -71,10 +68,10 @@ bool IntroState::finished() const
 	return (totalElapsed_ >= introDuration_) || interrupted_;
 	}
 
-Graphics::Texture IntroState::prepareFrame(std::chrono::milliseconds msecs)
+Graphics::Texture IntroState::prepareFrame(std::chrono::milliseconds elapsed)
 	{
-	graphicsScene_.update(msecs);
-	return camera_.getFrame();
+	renderer_.update(elapsed);
+	return renderer_.renderFrame();
 	}
 
 void IntroState::renderFrame(const Graphics::Texture& frame)

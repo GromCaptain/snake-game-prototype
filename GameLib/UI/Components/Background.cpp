@@ -5,8 +5,8 @@
 namespace UI
 {
 
-Background::Background(UIScene& uiScene, const Geometry& geometry):
-	UIComponent(uiScene, geometry)
+Background::Background(UIScene& uiScene):
+	uiScene_(uiScene)
 	{
 	}
 

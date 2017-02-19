@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "Actor.h"
+#include "ActorID.h"
 
 class Rectangle;
 
@@ -21,12 +22,14 @@ class GraphicsSceneLayer
 
 	void update(std::chrono::milliseconds elapsed);
 
-	void addActor(std::shared_ptr<Actor> actor);
+	ActorID addActor(std::shared_ptr<Actor> actor);
+	void deleteActor(ActorID id);
 
 	const std::vector<std::shared_ptr<Actor>> actorsInArea(const Rectangle& area) const;
 
 	private:
-	std::vector<std::shared_ptr<Actor>> actors_;
+	ActorID nextId_;
+	std::map<ActorID, std::shared_ptr<Actor>> actors_;
 	};
 
 }

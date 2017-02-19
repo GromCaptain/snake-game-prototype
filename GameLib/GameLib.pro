@@ -83,7 +83,12 @@ SOURCES += \
     Input/Events/MouseButtonEvent.cpp \
     Input/Events/MouseMoveEvent.cpp \
     UI/Components/Background.cpp \
-    GameEngine/States/States/SwitchInfo/SwitchIntroToLoadingInfo.cpp
+    GameEngine/States/States/SwitchInfo/SwitchIntroToLoadingInfo.cpp \
+    Graph/Render/RenderingPipeline.cpp \
+    Graph/Render/GraphicsScene/GameGraphicsScene.cpp \
+    Graph/Render/SingleAnimationRenderer.cpp \
+    Graph/Render/UIGraphicsScene/UIActor.cpp \
+    Graph/Render/UIGraphicsScene/UIGraphicsScenePage.cpp
 
 HEADERS += \
     Graph/GraphicsManager.h \
@@ -152,4 +157,14 @@ HEADERS += \
     Core/Util/CloneFactory.h \
     UI/Components/Background.h \
     Core/Util/UnorderedMap.h \
-    GameEngine/States/States/SwitchInfo/SwitchIntroToLoadingInfo.h
+    GameEngine/States/States/SwitchInfo/SwitchIntroToLoadingInfo.h \
+    Graph/Render/RenderingPipeline.h \
+    Graph/Render/InitialRenderingStage.h \
+    Graph/Render/IntermediateRenderingStage.h \
+    Graph/Render/GraphicsScene/GameGraphicsScene.h \
+    Graph/Render/GraphicsScene/ActorID.h \
+    Graph/Render/GraphicsScene/LayersOwner.h \
+    Graph/Render/SingleAnimationRenderer.h \
+    Graph/Render/UIGraphicsScene/UIGraphicsScene.h \
+    Graph/Render/UIGraphicsScene/UIActor.h \
+    Graph/Render/UIGraphicsScene/UIGraphicsScenePage.h

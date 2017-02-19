@@ -13,6 +13,11 @@ class MouseButtonEvent;
 class MouseMoveEvent;
 }
 
+namespace Graphics
+{
+class UIActor;
+}
+
 namespace UI
 {
 
@@ -21,7 +26,7 @@ class UIScene;
 class UIComponent
 	{
 	public:
-	explicit UIComponent(UIScene& uiScene, const Geometry& geometry);
+	explicit UIComponent(UIScene& uiScene, std::shared_ptr<Graphics::UIActor> actor, const Geometry& geometry);
 
 	void resizeAfterScreen(const Size& screenSize);
 
@@ -36,7 +41,7 @@ class UIComponent
 	UIScene& uiScene_;
 
 	private:
-	std::vector<std::shared_ptr<UIComponent>> children_;
+	std::shared_ptr<Graphics::UIActor> actor_;
 	Geometry geometry_;
 	};
 

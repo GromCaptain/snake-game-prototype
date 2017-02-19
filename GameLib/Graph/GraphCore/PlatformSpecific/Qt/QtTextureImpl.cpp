@@ -20,6 +20,8 @@ TextureImpl::TextureImpl()
 TextureImpl::TextureImpl(const Resources::ResourceImpl& resource)
 	{
 	image_.loadFromData(resource.byteArray());
+	if (image_.format() != QImage::Format_ARGB32)
+		image_ = image_.convertToFormat(QImage::Format_ARGB32);
 	ASSERT(!image_.isNull(), "Texture loading from resource failed. Texture is null.");
 	}
 

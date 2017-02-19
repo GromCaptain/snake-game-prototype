@@ -9,8 +9,8 @@ namespace UI
 
 const unsigned progressLineHorBorder = 5;
 
-ProgressBar::ProgressBar(UIScene& uiScene, const Geometry& geometry, ProgressUpdater progressUpdater):
-	UIComponent(uiScene, geometry),
+ProgressBar::ProgressBar(UIScene& uiScene, std::shared_ptr<Graphics::UIActor> actor, const Geometry& geometry, ProgressUpdater progressUpdater):
+	UIComponent(uiScene, actor, geometry),
 	progressUpdater_(progressUpdater)
 	{
 	}

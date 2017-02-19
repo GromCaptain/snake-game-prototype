@@ -1,5 +1,7 @@
 #include "Geometry.h"
 
+#include "Rectangle.h"
+
 Geometry Geometry::fixed(const Point& position, const Size& size)
 	{
 	return Geometry(SizePolicy::Fixed, SizePolicy::Fixed, position.x(), position.y(), size.width(), size.height(), 0, 0);
@@ -36,6 +38,11 @@ Point Geometry::position() const
 Size Geometry::size() const
 	{
 	return { currW_, currH_ };
+	}
+
+Rectangle Geometry::rect() const
+	{
+	return { currX_, currY_, currW_, currH_ };
 	}
 
 void Geometry::resizeAfterScreen(const Size& screenSize)

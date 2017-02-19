@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "Components/Background.h"
+#include "Core/Data/Geometry/Size.h"
 
 class Geometry;
 
@@ -24,12 +25,13 @@ class UIScene
 	public:
 	UIScene();
 
+	void resize(const Size& size);
 	void addComponent(std::shared_ptr<UIComponent> component);
 
 	void handleInput(std::queue<std::shared_ptr<Input::InputEvent>>& eventQueue);
 
-	void registerKeyPressCallback(Input::KeyboardKey key, std::function<void()> callback);
-	void registerKeyReleaseCallback(Input::KeyboardKey key, std::function<void()> callback);
+	void registerBkgKeyPressCallback(Input::KeyboardKey key, std::function<void()> callback);
+	void registerBkgKeyReleaseCallback(Input::KeyboardKey key, std::function<void()> callback);
 
 	private:
 	void handleKeyboardEvent(std::shared_ptr<Input::KeyboardEvent> keyboardEvent);
@@ -37,6 +39,7 @@ class UIScene
 	void handleMouseMoveEvent(std::shared_ptr<Input::MouseMoveEvent> mouseMoveEvent);
 
 	private:
+	Size size_;
 	std::vector<std::shared_ptr<UIComponent>> components_;
 	Background background_;
 	std::shared_ptr<UIComponent> activeComponent_;

@@ -23,9 +23,9 @@ using FrameUpdater = std::function<Texture(AnimationCollection&, std::chrono::mi
 class Actor
 	{
 	public:
-	Actor(const Point& position, const Animation& animation, const String& animationName = defaultAnimationName);
-	Actor(const Point& position, const AnimationCollection& animations, const String& currentAnimation);
-	Actor(const Point& position, const Size& size, const AnimationCollection& animations, FrameUpdater updater);
+	Actor(const Point& leftTopPosition, const Animation& animation);
+	Actor(const Point& leftTopPosition, const AnimationCollection& animations, const String& currentAnimation);
+	Actor(const Point& leftTopPosition, const Size& size, const AnimationCollection& animations, FrameUpdater updater);
 
 	Actor(const Actor&) = delete;
 	Actor& operator=(const Actor&) = delete;
@@ -36,7 +36,7 @@ class Actor
 
 	Texture currentFrame() const;
 
-	void move(const Point& position);
+	void move(const Point& leftTopPosition);
 	Rectangle rect() const;
 	Texture updatedFrameFromCurrentAnimation(AnimationCollection& animations, std::chrono::milliseconds elapsed);
 

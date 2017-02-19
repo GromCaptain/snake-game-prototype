@@ -15,14 +15,14 @@ class InputEvent;
 namespace UI
 {
 
-class Background : public UIComponent
+class Background
 	{
 	public:
-	Background(UIScene& uiScene, const Geometry& geometry);
+	Background(UIScene& uiScene);
 
-	void handleKeyboardEvent(std::shared_ptr<Input::KeyboardEvent> keyboardEvent) override;
-	void handleMouseButtonEvent(std::shared_ptr<Input::MouseButtonEvent> mouseButtonEvent) override;
-	void handleMouseMoveEvent(std::shared_ptr<Input::MouseMoveEvent> mouseMoveEvent) override;
+	void handleKeyboardEvent(std::shared_ptr<Input::KeyboardEvent> keyboardEvent);
+	void handleMouseButtonEvent(std::shared_ptr<Input::MouseButtonEvent> mouseButtonEvent);
+	void handleMouseMoveEvent(std::shared_ptr<Input::MouseMoveEvent> mouseMoveEvent);
 
 	void registerKeyPressCallback(Input::KeyboardKey key, std::function<void()> callback);
 	void registerKeyReleaseCallback(Input::KeyboardKey key, std::function<void()> callback);
@@ -31,6 +31,7 @@ class Background : public UIComponent
 	void findAndInvokeCallback(UnorderedMap<Input::KeyboardKey, std::function<void()>>& key2Callback, Input::KeyboardKey key);
 
 	private:
+	UIScene& uiScene_;
 	UnorderedMap<Input::KeyboardKey, std::function<void()>> key2PressCallback_;
 	UnorderedMap<Input::KeyboardKey, std::function<void()>> key2ReleaseCallback_;
 	};

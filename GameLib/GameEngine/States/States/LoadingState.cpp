@@ -6,8 +6,11 @@
 
 #include "Core/Task/Async/Async.h"
 #include "GameEngine/Settings.h"
-#include "Graph/Render/GraphicsScene/Actor.h"
 #include "Graph/GraphCore/Animation.h"
+#include "Graph/Render/SingleAnimationRenderer.h"
+#include "Graph/Render/UIGraphicsScene/UIActor.h"
+#include "Graph/Render/UIGraphicsScene/UIGraphicsScene.h"
+#include "Graph/Render/UIGraphicsScene/UIGraphicsScenePage.h"
 #include "Resources/ResourcesManager.h"
 #include "SwitchInfo/SwitchIntroToLoadingInfo.h"
 #include "UI/Components/ProgressBar.h"
@@ -18,7 +21,11 @@ namespace State
 {
 
 LoadingState::LoadingState():
-	graphicsScene_(), camera_(graphicsScene_), uiScene_(), loadingProgressBar_(nullptr)
+	uiScene_(),
+	bkgRenderer_(new Graphics::SingleAnimationRenderer()),
+	uiGraphicsScene_(new Graphics::UIGraphicsScene<UIPage>({ UIPage::Main }, UIPage::Main)),
+	loadingProgressBar_(nullptr),
+	renderer_(bkgRenderer_, { uiGraphicsScene_ })
 	{
 	}
 
@@ -41,7 +48,8 @@ void LoadingState::update(std::chrono::milliseconds elapsed)
 	{
 	auto frame = prepareFrame(elapsed);
 	renderFrame(frame);
-	if (loadingPackProgress_.load() >= (1 - 0.0001))
+	bool loadingComplete = (loadingPackProgress_.load() >= (1 - 0.0001));
+	if (loadingComplete)
 		totalElapsedForDemo_ += elapsed;
 	}
 
@@ -63,25 +71,26 @@ void LoadingState::initGraphics(std::shared_ptr<SwitchStateInfo> info)
 	auto loadingInfo = std::dynamic_pointer_cast<SwitchIntroToLoadingInfo>(info);
 	assert(loadingInfo != nullptr);
 
-	Graphics::Animation bkgAnim(loadingInfo -> loadingBackground);
-	std::shared_ptr<Graphics::Actor> backgroundTexture = std::make_shared<Graphics::Actor>(Point(0, 0), bkgAnim);
-	graphicsScene_.addActor(Graphics::GraphicsScene::Layer::Background, backgroundTexture);
+	bkgRenderer_ -> setAnimation(Graphics::Animation(loadingInfo -> loadingBackground));
 
 	Geometry pbGeometry = loadingInfo -> loadingProgressBarGeometry;
-	loadingProgressBar_ = std::make_shared<UI::ProgressBar>(uiScene_, pbGeometry, std::bind(&LoadingState::currentPercentProgress, this));
-	Graphics::FrameUpdater frameUpdater = std::bind(&LoadingState::updateProgressBarFrame, this, std::placeholders::_1, std::placeholders::_2);
-	std::shared_ptr<Graphics::Actor> progressBarActor = std::make_shared<Graphics::Actor>(pbGeometry.position(), pbGeometry.size(), loadingInfo -> loadingProgressBarAnimations, frameUpdater);
-	uiScene_.addComponent(loadingProgressBar_);
-	graphicsScene_.addActor(Graphics::GraphicsScene::Layer::HUD, progressBarActor);
+	Graphics::UIActor::FrameUpdater frameUpdater = std::bind(&LoadingState::updateProgressBarFrame, this, std::placeholders::_1, std::placeholders::_2);
+	auto progressBarActor = std::make_shared<Graphics::UIActor>(pbGeometry.rect(), loadingInfo -> loadingProgressBarAnimations, frameUpdater);
+	loadingProgressBar_ = std::make_shared<UI::ProgressBar>(uiScene_, progressBarActor, pbGeometry, std::bind(&LoadingState::currentPercentProgress, this));
 
-	auto hourglassActor = std::make_shared<Graphics::Actor>(loadingInfo -> hourglassPosition, loadingInfo -> hourglassAnimation);
-	graphicsScene_.addActor(Graphics::GraphicsScene::Layer::HUD, hourglassActor);
+	uiScene_.addComponent(loadingProgressBar_);
+	uiGraphicsScene_ -> addActor(UIPage::Main, progressBarActor);
+
+	Geometry hgGeometry = loadingInfo -> hourglassGeometry;
+	auto hourglassActor = std::make_shared<Graphics::UIActor>(hgGeometry.rect(), loadingInfo -> hourglassAnimation);
+	auto hourglassComp = std::make_shared<UI::UIComponent>(uiScene_, hourglassActor, hgGeometry);
+
+	uiScene_.addComponent(hourglassComp);
+	uiGraphicsScene_ -> addActor(UIPage::Main, hourglassActor);
 
 	auto settings = GameEngine::Settings::globalSettings();
 	auto resolution = settings.resolution();
-	graphicsScene_.resizeArea(resolution);
-	camera_.setResolution(resolution);
-	camera_.moveTo({ resolution.width() / 2, resolution.height() / 2 });
+	uiScene_.resize(resolution);
 	}
 
 void LoadingState::loadPackAndInitNextState(const String& packFileName, StateInitCallback initNextStateCallback)
@@ -99,10 +108,10 @@ Resources::ResourcePack LoadingState::loadPack(const String& fileName)
 	return pack;
 	}
 
-Graphics::Texture LoadingState::prepareFrame(std::chrono::milliseconds msecs)
+Graphics::Texture LoadingState::prepareFrame(std::chrono::milliseconds elapsed)
 	{
-	graphicsScene_.update(msecs);
-	return camera_.getFrame();
+	renderer_.update(elapsed);
+	return renderer_.renderFrame();
 	}
 
 void LoadingState::renderFrame(const Graphics::Texture& frame)

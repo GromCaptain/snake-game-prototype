@@ -5,9 +5,14 @@
 
 #include "GameState.h"
 
-#include "Graph/Render/GraphicsScene/GraphicsScene.h"
-#include "Graph/Render/GraphicsScene/Camera.h"
+#include "Graph/Render/RenderingPipeline.h"
+#include "Graph/Render/UIGraphicsScene/UIGraphicsScene.h"
 #include "UI/UIScene.h"
+
+namespace Graphics
+{
+class SingleAnimationRenderer;
+}
 
 namespace State
 {
@@ -26,13 +31,18 @@ class IntroState : public GameState
 	void handleInput();
 
 	bool finished() const;
-	Graphics::Texture prepareFrame(std::chrono::milliseconds msecs);
+	Graphics::Texture prepareFrame(std::chrono::milliseconds elapsed);
 	void renderFrame(const Graphics::Texture& frame);
 
 	private:
+	enum class UIPage { Main };
+
+	private:
 	UI::UIScene uiScene_;
-	Graphics::GraphicsScene graphicsScene_;
-	Graphics::Camera camera_;
+	const std::shared_ptr<Graphics::SingleAnimationRenderer> splashAnimRenderer_;
+	const std::shared_ptr<Graphics::UIGraphicsScene<UIPage>> uiGraphicsScene_;
+	Graphics::RenderingPipeline renderer_;
+
 	std::chrono::milliseconds totalElapsed_;
 	std::chrono::milliseconds introDuration_;
 	std::shared_ptr<SwitchStateInfo> switchToLoadingInfo_;

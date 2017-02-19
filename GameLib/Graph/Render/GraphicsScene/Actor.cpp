@@ -11,25 +11,24 @@ namespace Graphics
 
 const String Actor::defaultAnimationName = "animation";
 
-Actor::Actor(const Point& position, const Animation& animation, const String& animationName):
-	animations_(animation, animationName), currAnimation_(animationName),
-	rect_(position, animation.size()),
+Actor::Actor(const Point& leftTopPosition, const Animation& animation):
+	animations_(animation, defaultAnimationName), currAnimation_(defaultAnimationName),
+	rect_(leftTopPosition, animation.size()),
 	updater_(std::bind(&Actor::updatedFrameFromCurrentAnimation, this, std::placeholders::_1, std::placeholders::_2))
 	{
-	ASSERT(!currAnimation_.empty(), "current animation name is empty");
 	}
 
-Actor::Actor(const Point& position, const AnimationCollection& animations, const String& currentAnimation):
+Actor::Actor(const Point& leftTopPosition, const AnimationCollection& animations, const String& currentAnimation):
 	animations_(animations), currAnimation_(currentAnimation),
-	rect_(position, animations.animation(currentAnimation).size()),
+	rect_(leftTopPosition, animations.animation(currentAnimation).size()),
 	updater_(std::bind(&Actor::updatedFrameFromCurrentAnimation, this, std::placeholders::_1, std::placeholders::_2))
 	{
 	ASSERT(!currAnimation_.empty(), "current animation name is empty");
 	}
 
-Actor::Actor(const Point& position, const Size& size, const AnimationCollection& animations, FrameUpdater updater):
+Actor::Actor(const Point& leftTopPosition, const Size& size, const AnimationCollection& animations, FrameUpdater updater):
 	animations_(animations), currAnimation_("such_actor_does_not_need_current_animation_name"),
-	rect_(position, size), updater_(updater)
+	rect_(leftTopPosition, size), updater_(updater)
 	{
 	}
 
@@ -53,10 +52,10 @@ Texture Actor::currentFrame() const
 	return animations_.currentFrame();
 	}
 
-void Actor::move(const Point& position)
+void Actor::move(const Point& leftTopPosition)
 	{
 	Size rectSize = rect_.size();
-	rect_ = { position, rectSize };
+	rect_ = { leftTopPosition, rectSize };
 	}
 
 Rectangle Actor::rect() const

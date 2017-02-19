@@ -49,12 +49,14 @@ void PreloadState::prepareApplication()
 	loadData(initCfgReader);
 	prepareMainWindow();
 	}
+
 ConfigReader PreloadState::initConfigReader()
 	{
 	Resources::ResourceID initCfgFileId = Resources::ResourcesManager::instance().getResourceId(initConfigName_);
 	Resources::Resource initCfgData = Resources::ResourcesManager::instance().getResource(initCfgFileId);
 	return ConfigReader(initCfgData.asString());
 	}
+
 void PreloadState::parseConfig(const ConfigReader &cfg)
 	{
 	ScreenWidth_ = cfg.getInt("ScreenWidth");
@@ -73,10 +75,7 @@ void PreloadState::loadData(const ConfigReader& cfg)
 
 	int introDurationMSecs = cfg.getInt("IntroDurationMilliseconds");
 
-	String introSplashFileName = cfg.getString("IntroSplashAnimation");
-	ResourceID introSplashId = resourceManager.getPackId(introSplashFileName);
-	ResourcePack introSplashPack = resourceManager.getPack(introSplashId);
-	Graphics::Animation introSplashAnim = Graphics::AnimationLoader::loadFromResources(introSplashPack);
+	Graphics::Animation introSplashAnim = loadAnimation(resourceManager, cfg.getString("IntroSplashAnimation"));
 
 	String loadingBackgroundFileName = cfg.getString("LoadingBackgroundFileName");
 	ResourceID loadBkgId = resourceManager.getResourceId(loadingBackgroundFileName);
@@ -88,31 +87,39 @@ void PreloadState::loadData(const ConfigReader& cfg)
 	ResourcePack loadPBarAnimsPack = resourceManager.getPack(loadPBarAnimsId);
 	Graphics::AnimationCollection loadPBarAnims = Graphics::AnimationCollectionLoader::loadFromResources(loadPBarAnimsPack);
 
-	String loadingProgressBarGeometryFileName = cfg.getString("LoadingProgressBarGeometryFileName");
-	ResourceID loadPBarGeomId = resourceManager.getResourceId(loadingProgressBarGeometryFileName);
-	Resource loadPBarGeomResource = resourceManager.getResource(loadPBarGeomId);
-	Geometry loadPBarGeometry = GeometryLoader::loadFromResources(loadPBarGeomResource);
+	Geometry loadPBarGeometry = loadGeometry(resourceManager, cfg.getString("LoadingProgressBarGeometryFileName"));
 
-	String hourglassAnimationFileName = cfg.getString("HourglassAnimationFileName");
-	ResourceID hourglassAnimId = resourceManager.getPackId(hourglassAnimationFileName);
-	ResourcePack hourglassAnimPack = resourceManager.getPack(hourglassAnimId);
-	Graphics::Animation hourglassAnim = Graphics::AnimationLoader::loadFromResources(hourglassAnimPack);
-
-	int hourglassX = cfg.getInt("HourglassX"), hourglassY = cfg.getInt("HourglassY");
+	Graphics::Animation hourglassAnim = loadAnimation(resourceManager, cfg.getString("HourglassAnimationFileName"));
+	Geometry hourglassGeometry = loadGeometry(resourceManager, cfg.getString("HourglassGeometryFileName"));
 
 	auto mainMenuInitCallback = [](const ResourcePack&, ProgressUpdateCallback){};
-	auto switchToLoadingInfo = std::make_shared<SwitchIntroToLoadingInfo>(loadStateCfgFileName, mainMenuInitCallback, loadBkgTexture, loadPBarAnims, loadPBarGeometry, hourglassAnim, Point(hourglassX, hourglassY));
+	auto switchToLoadingInfo = std::make_shared<SwitchIntroToLoadingInfo>(loadStateCfgFileName, mainMenuInitCallback, loadBkgTexture, loadPBarAnims, loadPBarGeometry, hourglassAnim, hourglassGeometry);
 	switchInfo_ = std::make_shared<SwitchToIntroInfo>(std::chrono::milliseconds(introDurationMSecs), switchToLoadingInfo, introSplashAnim);
 
 	String globalSettingsFileName = cfg.getString("SettingsConfigFile");
 	GameEngine::Settings::globalSettings().loadFromFile(globalSettingsFileName);
 	}
+
 void PreloadState::prepareMainWindow()
 	{
 	auto& wndMgr = Window::WindowManager::instance();
 	Window::Window& mainWnd = wndMgr.mainWindowAsync();
 	wndMgr.doWorkInMainThread(std::bind(&Window::Window::setWindowType, &mainWnd, Window::WindowType::Windowed));
 	wndMgr.doWorkInMainThread(std::bind(&Window::Window::setResolution, &mainWnd, ScreenWidth_, ScreenHeight_));
+	}
+
+Geometry PreloadState::loadGeometry(Resources::ResourcesManager& resourceManager, const String& fileName)
+	{
+	Resources::ResourceID resourceId = resourceManager.getResourceId(fileName);
+	Resources::Resource resource = resourceManager.getResource(resourceId);
+	return GeometryLoader::loadFromResources(resource);
+	}
+
+Graphics::Animation PreloadState::loadAnimation(Resources::ResourcesManager& resourceManager, const String& fileName)
+	{
+	Resources::ResourceID resourceId = resourceManager.getPackId(fileName);
+	Resources::ResourcePack resource = resourceManager.getPack(resourceId);
+	return Graphics::AnimationLoader::loadFromResources(resource);
 	}
 
 }

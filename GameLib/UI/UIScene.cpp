@@ -9,8 +9,16 @@ namespace UI
 {
 
 UIScene::UIScene():
-	background_(*this, Geometry::scalable({0, 0}, {100, 100}, {1, 1}))
+	size_(100, 100),
+	background_(*this)
 	{
+	}
+
+void UIScene::resize(const Size& size)
+	{
+	for (auto compPtr : components_)
+		compPtr -> resizeAfterScreen(size);
+	size_ = size;
 	}
 
 void UIScene::addComponent(std::shared_ptr<UIComponent> component)
@@ -50,12 +58,12 @@ void UIScene::handleInput(std::queue<std::shared_ptr<Input::InputEvent>>& eventQ
 		}
 	}
 
-void UIScene::registerKeyPressCallback(Input::KeyboardKey key, std::function<void ()> callback)
+void UIScene::registerBkgKeyPressCallback(Input::KeyboardKey key, std::function<void ()> callback)
 	{
 	background_.registerKeyPressCallback(key, callback);
 	}
 
-void UIScene::registerKeyReleaseCallback(Input::KeyboardKey key, std::function<void ()> callback)
+void UIScene::registerBkgKeyReleaseCallback(Input::KeyboardKey key, std::function<void ()> callback)
 	{
 	background_.registerKeyReleaseCallback(key, callback);
 	}

@@ -7,27 +7,31 @@
 namespace Graphics
 {
 
-Camera::Camera(const GraphicsScene& scene):
-	scene_(scene), resolution_(scene.areaSize())
+template<typename Layer>
+Camera<Layer>::Camera(const LayersOwner<Layer>& scene, const Size& sceneAreaSize):
+	scene_(scene), sceneAreaSize_(sceneAreaSize)
 	{
 	}
 
-void Camera::setResolution(const Size& resolution)
+template<typename Layer>
+void Camera<Layer>::setResolution(const Size& resolution)
 	{
 	resolution_ = resolution;
 	}
 
-void Camera::moveTo(const Point& viewportCenter)
+template<typename Layer>
+void Camera<Layer>::moveTo(const Point& viewportCenter)
 	{
 	viewportCenter_ = viewportCenter;
 	}
 
-Texture Camera::getFrame() const
+template<typename Layer>
+Texture Camera<Layer>::getFrame() const
 	{
 	int left = viewportCenter_.x() - resolution_.width() / 2, top = viewportCenter_.y() - resolution_.height() / 2;
 	Rectangle viewport = { Point(left, top), resolution_ };
-	Texture output(scene_.areaSize());
-	for (auto layerId : GraphicsScene::layersOrder)
+	Texture output(sceneAreaSize_);
+	for (auto layerId : scene_.layersOrder())
 		{
 		auto actorsToRender = scene_.actorsInArea(layerId, viewport);
 		for (const auto& actor : actorsToRender)

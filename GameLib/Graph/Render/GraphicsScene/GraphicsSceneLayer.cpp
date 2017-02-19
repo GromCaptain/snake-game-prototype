@@ -5,27 +5,40 @@
 namespace Graphics
 {
 
-GraphicsSceneLayer::GraphicsSceneLayer()
+GraphicsSceneLayer::GraphicsSceneLayer():
+	nextId_(1)
 	{
 	}
 
 void GraphicsSceneLayer::update(std::chrono::milliseconds elapsed)
 	{
-	for (auto& actor : actors_)
-		actor -> update(elapsed);
+	for (auto& actorPair : actors_)
+		actorPair.second -> update(elapsed);
 	}
 
-void GraphicsSceneLayer::addActor(std::shared_ptr<Actor> actor)
+ActorID GraphicsSceneLayer::addActor(std::shared_ptr<Actor> actor)
 	{
-	actors_.push_back(actor);
+	ActorID id = nextId_++;
+	actors_.emplace(id, actor);
+	return id;
+	}
+
+void GraphicsSceneLayer::deleteActor(ActorID id)
+	{
+	auto it = actors_.find(id);
+	if (it != actors_.end())
+		actors_.erase(it);
 	}
 
 const std::vector<std::shared_ptr<Actor> > GraphicsSceneLayer::actorsInArea(const Rectangle& area) const
 	{
 	std::vector<std::shared_ptr<Actor>> result;
-	for (const auto& actor : actors_)
+	for (const auto& actorPair : actors_)
+		{
+		const auto& actor = actorPair.second;
 		if (actor -> rect().intersects(area))
 			result.push_back(actor);
+		}
 	return result;
 	}
 
